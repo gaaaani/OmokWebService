@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../resources/static/css/reset.css" rel="stylesheet">
+    <link href="../resources/static/css/register.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="gamename">
+                5조은목
+            </div>
+            <div id="homeicon">
+                <img src="../resources/static/img/tomainicon.png">
+            </div>
+        </div>
+        <div id="content">
+            <form method="post" action="register">
+                <div id="register">
+                    <div id="registertext">
+                        <img src="../resources/static/img/arrow.png">
+                        <p>회원가입</p>
+                    </div>
+                    <div id ="createid">
+                        <input id="inputid" type="text" name="userid" placeholder=" 아이디를 입력하세요">
+                        <input id="checkid" type="button" name="checkid" value="중복확인">
+                    </div>
+                    <div id ="createnickname">
+                        <input id="inputnickname" type="text" name="usernickname" placeholder=" 닉네임을 입력하세요">
+                        <input id="checknickname" type="button" name="checknickname" value="중복확인">
+                    </div>
+                    <div id="createpassword">
+                        <input id="inputpassword" type="text" name="userpassword" placeholder=" 비밀번호를 입력하세요">
+                    </div>
+                    <div id="checkpassword">
+                        <input id="checkpassword1" type="text" name="checkpassword1" placeholder=" 비밀번호 확인">
+                    </div>
+                </div>
+                <div id="selectcharater">
+                    <div id="charatertext">
+                        <img src="../resources/static/img/arrow.png">
+                        <p>캐릭터선택</p>
+                    </div>
+                    <div id="charaterlist">
+                        <div id="listbox">
+                            <img id="sol" class="charshape" src="../resources/static/img/sol.png">
+                            <img id="lay" class="charshape" src="../resources/static/img/lay.png">
+                            <img id="moli" class="charshape" src="../resources/static/img/moli.png">
+                            <img id="rino" class="charshape" src="../resources/static/img/rino.png">
+                        </div>
+                    </div>
+                    <div id="bgcolor">
+                        <div id="colorlist">
+                            <img id="orange" class="colorshape">
+                            <img id="pink" class="colorshape">
+                            <img id="gray" class="colorshape">
+                            <img id="skyblue" class="colorshape">
+                            <img id="navy" class="colorshape">
+                        </div>
+                    </div>
+                </div>
+                <div id="create">
+                    <input id="createbutton" type="submit" value="확인">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
