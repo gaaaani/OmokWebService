@@ -11,15 +11,9 @@
     <div id="wrapper">
         <div id="useable">
             사용 가능
-            <div class="closebutton">
-                확인
-            </div>
         </div>
         <div id="unusealbe">
             사용 불가
-            <div class="closebutton">
-                확인
-            </div>
         </div>
         <div id="header">
             <div id="gamename">
@@ -51,12 +45,12 @@
                         <input id="checkpassword1" type="text" name="checkpassword1" placeholder=" 비밀번호 확인">
                     </div>
                 </div>
-                <div id="selectcharater">
-                    <div id="charatertext">
-                        <img src="/img/arrow.png">
+                <div id="selectcharacter">
+                    <div id="charactertext">
+                        <img src="img/arrow.png">
                         <p>캐릭터선택</p>
                     </div>
-                    <div id="charaterlist">
+                    <div id="characterlist">
                         <div id="listbox">
                             <img id="sol" class="charshape" src="img/sol.png">
                             <img id="lay" class="charshape" src="img/lay.png">
@@ -75,10 +69,74 @@
                     </div>
                 </div>
                 <div id="create">
-                    <input id="createbutton" type="submit" value="확인">
+                    <input id="createbutton" type="button" value="확인">
                 </div>
             </form>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        let isCheckingId = false;
+        let isCheckingNickName = false;
+        let usercharacter = "sol";
+        let userbackground = "orange";
+
+        $("#checkid").on("click",function(){
+            const userid = $("#userid").val();
+            if(userid === ''){
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '/omok/Register',
+                data: { command:'checkid',userid:'userid'},
+                success: function(result){
+                    if (result ==='true'){
+                        $('#unusealbe').show();
+                        setTimeout(function() {
+                            $('#unusealbe').hide();
+                        },2000);
+                    } else {
+                        $('#useable').show();
+                        setTimeout(function() {
+                            $('#useable').hide();
+                        },2000);
+                        $("#inputid").prop('disabled',true);
+                        isCheckingId = true;
+                    }
+                }
+            })
+        })
+        
+        $("#checknickname").on("click",function(){
+            const userid = $("#usernickname").val();
+            if(userid === ''){
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '/omok/Register',
+                data: { command:'checknickname',userid:'usernickname'},
+                success: function(result){
+                    if (result ==='true'){
+                        $('#unusealbe').show();
+                        setTimeout(function() {
+                            $('#unusealbe').hide();
+                        },2000);
+                    } else {
+                        $('#useable').show();
+                        setTimeout(function() {
+                            $('#useable').hide();
+                        },2000);
+                        $("#inputnickname").prop('disabled',true);
+                        isCheckingNickName = true;
+                    }
+                }
+            })
+        })
+
+        
+    </script>
 </body>
 </html>

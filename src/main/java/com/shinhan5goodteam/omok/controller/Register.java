@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shinhan5goodteam.omok.service.UserService;
+
 /**
  * Servlet implementation class Register
  */
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private UserService userService = new UserService();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,8 +54,21 @@ public class Register extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
+		String command = request.getParameter("command");
+
+		if (command.equals("checkid")){
+			String userid = request.getParameter("userid");
+			boolean isDupiclicate = userService.isUserIdDuplicate(userid);
+
+			response.getWriter().write(String.valueOf(isDupiclicate));
+		} else if (command.equals("checknickname")){
+
+		} else if (command.equals("register")){
+
+		}
+
 	}
 
 }

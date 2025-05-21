@@ -1,12 +1,12 @@
 @font-face {
     font-family: 'nanumesquareneo';
-    src: url('../../../resources/static/css/font/NanumSquareNeo-aLt.ttf');
+    src: url('font/NanumSquareNeo-aLt.ttf');
 }
 body{
     font-family: 'nanumesquareneo';
     display: flex;
     justify-content: center;  /* 가로 중앙 정렬 */
-    align-items: center;      /* 세로 중앙 정렬 */
+    /* align-items: center;      세로 중앙 정렬 */
 }
 #wrapper{
     width: 393px;
@@ -25,7 +25,7 @@ body{
     background-color: #F3B671;
     z-index: 900;
     text-align: center;
-    line-height: 70px;
+    line-height: 100px;
     display: none;
 }
 #unusealbe{
@@ -39,21 +39,8 @@ body{
     background-color: #F3B671;
     z-index: 900;
     text-align: center;
-    line-height: 70px;
+    line-height: 100px;
     display: none;
-}
-.closebutton{
-    width: 50px;
-    height: 30px;
-    position: absolute;
-    left: 75px;
-    top: 60px;
-    border-radius: 10px;
-    background-color: beige;
-    border: 1px solid gray;
-    text-align: center;
-    line-height: 30px;
-    font-size: 13px;
 }
 #header{
     position: relative;;
@@ -178,28 +165,28 @@ body{
     border: 1px solid #ADADAD;
     border-radius: 10px;
 }
-#selectcharater{
+#selectcharacter{
     width: 393px;
     height: 280px;
 }
-#charatertext{
+#charactertext{
     width: 393px;
     height: 25%;
     position: relative;
 }
-#charatertext > img {
+#charactertext > img {
     position: absolute;
     width: 16px;
     height: 16px;
     left : 16px;
     top : 25px;
 }
-#charatertext > p {
+#charactertext > p {
     position: absolute;
     left : 35px;
     top: 22px;
 }
-#charaterlist{
+#characterlist{
     height: 45%;
     position: relative;
 }
@@ -216,6 +203,7 @@ body{
     position: absolute;
     left: 12px;
     top:12px;
+    border: 1px solid black;
 }
 #lay{
     position: absolute;
@@ -261,6 +249,7 @@ body{
     left: 45px;
     top: 4px;
     background-color: #F3B671;
+    border: 1px solid black;
 }
 #pink{
     position: absolute;
