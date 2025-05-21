@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +29,7 @@
                     <div class="profile">
                         <img src="img/lay.png" alt="프로필 이미지" />
                     </div>
-                    <div class="name-box">곰돌이</div>
+                    <div class="name-box"><%= nickname %></div>
                 </div>
                 <div class="score-container">
                     <div class="score-box1">
