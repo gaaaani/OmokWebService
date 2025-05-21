@@ -39,10 +39,10 @@
                         <input id="checknickname" type="button" name="checknickname" value="중복확인">
                     </div>
                     <div id="createpassword">
-                        <input id="inputpassword" type="text" name="userpassword" placeholder=" 비밀번호를 입력하세요">
+                        <input id="inputpassword" type="password" name="userpassword" placeholder=" 비밀번호를 입력하세요">
                     </div>
                     <div id="checkpassword">
-                        <input id="checkpassword1" type="text" name="checkpassword1" placeholder=" 비밀번호 확인">
+                        <input id="checkpassword1" type="password" name="checkpassword1" placeholder=" 비밀번호 확인">
                     </div>
                 </div>
                 <div id="selectcharacter">
@@ -201,7 +201,7 @@
                 success: function(result){
                     console.log(result);
                         if(result === 'true') {
-                            location.href = "login.html";
+                            location.href = "login.jsp";
                         }
                     }
             })
