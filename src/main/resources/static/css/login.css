@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'nanumesquareneo';
-    src: url('../../../resources/static/css/font/NanumSquareNeo-aLt.ttf');
+    src: url('font/NanumSquareNeo-aLt.ttf');
 }
 
 /* 전체 바디 */
