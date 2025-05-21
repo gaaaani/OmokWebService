@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'nanumesquareneo';
-    src: url('css/font/NanumSquareNeo-aLt.ttf');
+    src: url('font/NanumSquareNeo-aLt.ttf');
 }
 
 @font-face {
     font-family: 'nanumesquareneo_b';
-    src: url('css/font/NanumSquareNeo-bRg.ttf');
+    src: url('font/NanumSquareNeo-bRg.ttf');
 }
 
 body {
