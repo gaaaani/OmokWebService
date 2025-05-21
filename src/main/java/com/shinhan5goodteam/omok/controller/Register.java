@@ -64,9 +64,19 @@ public class Register extends HttpServlet {
 
 			response.getWriter().write(String.valueOf(isDupiclicate));
 		} else if (command.equals("checknickname")){
+			String usernickname = request.getParameter("usernickname");
+			boolean isDupiclicate = userService.isUserNicknameDuplicate(usernickname);
 
+			response.getWriter().write(String.valueOf(isDupiclicate));
 		} else if (command.equals("register")){
-
+			String userid = request.getParameter("userid");
+			String userpassword = request.getParameter("userpassword");
+			String usernickname = request.getParameter("usernickname");
+			String profileimage = request.getParameter("profileimage");
+			String profilebackground = request.getParameter("profilebackground");
+			System.out.println(userid+" "+userpassword+" "+usernickname+" "+profilebackground+" "+profileimage);
+			boolean isCreatingAccount = userService.creatingAccount(userid, userpassword, usernickname, profileimage, profilebackground);
+			response.getWriter().write(String.valueOf(isCreatingAccount));
 		}
 
 	}
