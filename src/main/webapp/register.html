@@ -39,10 +39,10 @@
                         <input id="checknickname" type="button" name="checknickname" value="중복확인">
                     </div>
                     <div id="createpassword">
-                        <input id="inputpassword" type="text" name="userpassword" placeholder=" 비밀번호를 입력하세요">
+                        <input id="inputpassword" type="password" name="userpassword" placeholder=" 비밀번호를 입력하세요">
                     </div>
                     <div id="checkpassword">
-                        <input id="checkpassword1" type="text" name="checkpassword1" placeholder=" 비밀번호 확인">
+                        <input id="checkpassword1" type="password" name="checkpassword1" placeholder=" 비밀번호 확인">
                     </div>
                 </div>
                 <div id="selectcharacter">
@@ -52,19 +52,19 @@
                     </div>
                     <div id="characterlist">
                         <div id="listbox">
-                            <img id="sol" class="charshape" src="img/sol.png">
-                            <img id="lay" class="charshape" src="img/lay.png">
-                            <img id="moli" class="charshape" src="img/moli.png">
-                            <img id="rino" class="charshape" src="img/rino.png">
+                            <img id="sol" class="charshape" src="img/sol.png" data-value="sol">
+                            <img id="lay" class="charshape" src="img/lay.png" data-value="lay">
+                            <img id="moli" class="charshape" src="img/moli.png" data-value="moil">
+                            <img id="rino" class="charshape" src="img/rino.png" data-value="rino">
                         </div>
                     </div>
                     <div id="bgcolor">
                         <div id="colorlist">
-                            <img id="orange" class="colorshape">
-                            <img id="pink" class="colorshape">
-                            <img id="gray" class="colorshape">
-                            <img id="skyblue" class="colorshape">
-                            <img id="navy" class="colorshape">
+                            <img id="orange" class="colorshape" data-value="orange">
+                            <img id="pink" class="colorshape" data-value="pink">
+                            <img id="gray" class="colorshape" data-value="gray">
+                            <img id="skyblue" class="colorshape" data-value="skyblue">
+                            <img id="navy" class="colorshape" data-value="navy">
                         </div>
                     </div>
                 </div>
@@ -83,14 +83,14 @@
         let userbackground = "orange";
 
         $("#checkid").on("click",function(){
-            const userid = $("#userid").val();
+            const userid = $("#inputid").val();
             if(userid === ''){
                 return;
             }
             $.ajax({
                 type: 'post',
                 url: '/omok/Register',
-                data: { command:'checkid',userid:'userid'},
+                data: { command:'checkid',userid: userid},
                 success: function(result){
                     if (result ==='true'){
                         $('#unusealbe').show();
@@ -110,14 +110,14 @@
         })
         
         $("#checknickname").on("click",function(){
-            const userid = $("#usernickname").val();
-            if(userid === ''){
+            const usernickname = $("#inputnickname").val();
+            if(usernickname === ''){
                 return;
             }
             $.ajax({
                 type: 'post',
                 url: '/omok/Register',
-                data: { command:'checknickname',userid:'usernickname'},
+                data: { command:'checknickname',usernickname: usernickname},
                 success: function(result){
                     if (result ==='true'){
                         $('#unusealbe').show();
@@ -136,6 +136,79 @@
             })
         })
 
+        $("#sol").on('click', function(){
+            $(".charshape").css("border","none");
+            $(this).css("border","1px solid black");
+            usercharacter = $(this).data('value');
+        })
+
+        $("#lay").on('click', function(){
+            $(".charshape").css("border","none");
+            $(this).css("border","1px solid black");
+            usercharacter = $(this).data('value');
+        })
+
+        $("#moli").on('click', function(){
+            $(".charshape").css("border","none");
+            $(this).css("border","1px solid black");
+            usercharacter = $(this).data('value');
+        })
+
+        $("#rino").on('click', function(){
+            $(".charshape").css("border","none");
+            $(this).css("border","1px solid black");
+            usercharacter = $(this).data('value');
+        })
+
+
+        $("#orange").on('click', function(){
+            $(".colorshape").css("border","none");
+            $(this).css("border","1px solid black");
+            userbackground = $(this).data('value');
+        })
+        $("#pink").on('click', function(){
+            $(".colorshape").css("border","none");
+            $(this).css("border","1px solid black");
+            userbackground = $(this).data('value');
+        })
+        $("#gray").on('click', function(){
+            $(".colorshape").css("border","none");
+            $(this).css("border","1px solid black");
+            userbackground = $(this).data('value');
+        })
+        $("#skyblue").on('click', function(){
+            $(".colorshape").css("border","none");
+            $(this).css("border","1px solid black");
+            userbackground = $(this).data('value');
+        })
+        $("#navy").on('click', function(){
+            $(".colorshape").css("border","none");
+            $(this).css("border","1px solid black");
+            userbackground = $(this).data('value');
+        })
+
+
+        $("#createbutton").on('click',function(){
+            const userid = $("#inputid").val();
+            const userpassword = $("#inputpassword").val();
+            const usernickname = $("#inputnickname").val();
+            
+            if (isCheckingId && isCheckingNickName && $("#inputpassword").val() != null && $("#inputpassword").val() != '' && $("#inputpassword").val() === $("#checkpassword1").val()) {
+                $.ajax({
+                type: 'post',
+                url: '/omok/Register',
+                data: { command:'register',userid: userid, userpassword: userpassword,usernickname: usernickname,profileimage: usercharacter,profilebackground: userbackground},
+                success: function(result){
+                    console.log(result);
+                        if(result === 'true') {
+                            location.href = "login.jsp";
+                        }
+                    }
+            })
+            } else {
+                return;
+            }
+        })
         
     </script>
 </body>
