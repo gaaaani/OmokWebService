@@ -7,17 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
- * Servlet implementation class CreateRoom
+ * Servlet implementation class UpdateProfile
  */
-public class CreateRoom extends HttpServlet {
+public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateRoom() {
+    public UpdateProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
