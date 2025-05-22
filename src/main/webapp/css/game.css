@@ -1,0 +1,250 @@
+@font-face {
+  font-family: 'nanumesquareneo';
+  src: url('font/NanumSquareNeo-aLt.ttf');
+}
+
+@font-face {
+  font-family: 'nanumesquareneo_b';
+  src: url('font/NanumSquareNeo-bRg.ttf');
+}
+
+#leftUser,
+#rightUser {
+  display: block;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+#left-user,
+#right-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 가로 중앙 정렬 */
+  justify-content: center;
+  /* 세로 중앙 정렬 */
+  height: 100px;
+  /* 적당히 고정 높이를 줘야 가운데 정렬 효과가 보입니다 */
+}
+
+#wrapper {
+  width: 398px;
+  height: 852px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  font-family: 'nanumesquareneo', sans-serif;
+  font-size: 13px;
+  position: relative;
+}
+
+#header {
+  background-color: white;
+  padding: 10px;
+  font-family: 'nanumesquareneo', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+#title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+/* 오목판 */
+#omok-board {
+  width: 350px;
+  height: 350px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+
+  /* 1px 선이 14칸 간격으로 반복되도록 설정(=15줄) */
+  background-image:
+    linear-gradient(to right, #ccc 1px, transparent 1px),
+    linear-gradient(to bottom, #ccc 1px, transparent 1px);
+  background-size:
+    calc(100% / 14)
+    /* 가로 한 칸 너비 = 전체 너비 ÷ 14 */
+    calc(100% / 14);
+  /* 세로 한 칸 높이 = 전체 높이 ÷ 14 */
+
+  position: relative;
+  /* ::after 를 위한 기준 */
+}
+
+/* 중앙 별목 찍기 */
+#omok-board::after {
+  content: "";
+  position: absolute;
+  /* 점 크기 조절 */
+  width: 8px;
+  height: 8px;
+  background-color: #000;
+  border-radius: 50%;
+  /* 중앙에 정렬 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.info-panel {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #e2f0ff;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+
+}
+
+.info-panel-inside {
+  width: 95%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#player-info {
+  font-family: 'nanumesquareneo', sans-serif;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.name-stone {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#move-button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  background-color: #e0e0e0; 
+  border: 1px solid hwb(210 64% 28%);
+  font-weight: bold;
+  font-family: 'nanumesquareneo', sans-serif;
+}
+
+#exit-button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #a3c4de;
+  border: none;
+  font-weight: bold;
+  font-family: 'nanumesquareneo', sans-serif;
+
+}
+
+#popup-overlay {
+  display: none;
+  /* 기본 숨김 */
+  position: absolute;
+  /* wrapper 기준 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  /* 위에 올리기 */
+}
+
+#popup-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'nanumesquareneo', sans-serif;
+  text-align: center;
+  width: 80%;
+}
+
+/* 3) 승리·패배 전용 색상 */
+#winner-popup h2 {
+  color: #4caf50;
+  font-family: 'nanumesquareneo', sans-serif;
+
+}
+
+#loser-popup h2 {
+  color: #f44336;
+  font-family: 'nanumesquareneo', sans-serif;
+
+}
+
+/* 버튼 스타일 재사용 */
+.popup-button {
+  margin: 10px 8px 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+/* 팝업 박스 */
+.popup-box {
+  display: none;
+  /* 기본 숨김 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 80%;
+  max-width: 300px;
+  z-index: 101;
+  font-family: 'nanumesquareneo', sans-serif;
+
+}
+
+/* 승리 팝업만 살짝 위쪽 */
+#winner-popup .popup-box {
+  top: 30%;
+  transform: translateX(-50%);
+}
+
+.popup-avatar {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 12px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 12px auto;
+}
+
+.avatar-bg {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}

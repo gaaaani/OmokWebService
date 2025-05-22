@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오조은목</title>
-  <link rel="stylesheet" href="../resources/static/css/layout.css">
-  <link rel="stylesheet" href="../resources/static/css/game.css">
-  <link rel="stylesheet" href="../resources/static/css/reset.css">
+  <title>5조은목</title>
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/game.css">
 
 </head>
 
@@ -82,10 +82,10 @@
 
       <!-- 3) 패배 팝업 -->
       <div id="loser-popup" class="popup-box">
+        <h2>LOSE !!</h2>
         <div class="avatar-bg" style="background-color: #F8BBD0;">
           <img src="../resources/static/img/sol.png" alt="lose" class="popup-avatar" id="lose-img">
         </div>
-        <h2>LOSE !!</h2>
         <p id="loser-text">곰돌이 😢 −100점!!</p>
         <div class="divider"></div>
         <button class="popup-button" onclick="closeAllPopups()">나가기</button>
@@ -99,25 +99,22 @@
     /*
     타이머 기능
     */
-    // 1) 타이머 초기값 및 변수
     let leftTime = 30;
     let rightTime = 30;
-    let current = 'left';   // 'left' 또는 'right'
+    let current = 'left';   
     let timerId = null;
 
-    // 2) 디스플레이 요소 참조
     const leftDisplay = document.getElementById('left-time');
     const rightDisplay = document.getElementById('right-time');
     const moveBtn = document.getElementById('move-button');
     const exitBtn = document.getElementById('exit-button');
 
-    // 3) 화면에 시간 업데이트
+    // 화면에 시간 업데이트
     function updateDisplays() {
       leftDisplay.textContent = leftTime;
       rightDisplay.textContent = rightTime;
     }
 
-    // 4) 타이머 시작
     function startTimer() {
       if (timerId) clearInterval(timerId);
       timerId = setInterval(() => {
@@ -133,14 +130,12 @@
       updateDisplays();
     }
 
-    // 5) 타임아웃 처리
     function onTimeout(player) {
       clearInterval(timerId);
       alert(`${player === 'left' ? '부엉이' : '곰돌이'} 시간이 초과되었습니다.`);
       switchTurn();
     }
 
-    // 6) 턴 전환 및 시간 리셋
     function switchTurn() {
       if (current === 'left') leftTime = 30;
       else rightTime = 30;
@@ -148,13 +143,13 @@
       startTimer();
     }
 
-    // 7) “착수” 버튼 클릭 시 턴 전환
+    // “착수” 버튼 클릭 시 턴 전환
     moveBtn.addEventListener('click', () => {
       clearInterval(timerId);
       switchTurn();
     });
 
-    // 8) 페이지 로드 시 타이머 시작
+    // 페이지 로드 시 타이머 시작
     window.addEventListener('load', startTimer);
 
     /*
@@ -169,20 +164,19 @@
       });
     }
 
-    // — 1) 나가기 확인 팝업 열기
+    // 나가기 확인 팝업 열기
     function showExitPopup() {
       document.getElementById('popup-overlay').style.display = 'block';
       document.getElementById('exit-popup').style.display = 'block';
     }
 
-    // — 2) 나가기(항복) 처리
+    //  나가기(항복) 처리
     function confirmExit() {
       closeAllPopups();
       alert('항복 처리되었습니다.');
-      // TODO: 서버에 결과 전송 or 페이지 이동 로직 추가
     }
 
-    // — 3) 승리 팝업 열기
+    // 승리 팝업 열기
     // player: '부엉이' or '곰돌이', delta: 점수 변화값(숫자)
     function showWinnerPopup(player, delta) {
       document.getElementById('popup-overlay').style.display = 'block';
@@ -190,14 +184,14 @@
       document.getElementById('winner-popup').style.display = 'block';
     }
 
-    // — 4) 패배 팝업 열기
+    // 패배 팝업 열기
     function showLoserPopup(player, delta) {
       document.getElementById('popup-overlay').style.display = 'block';
       document.getElementById('loser-text').textContent = `${player} 😢 −${delta}점!!`;
       document.getElementById('loser-popup').style.display = 'block';
     }
 
-    // — 5) 게임 종료 시 호출하는 함수
+    // 게임 종료 시 호출하는 함수
     // winner: 'left' or 'right'
     function onGameEnd(winner) {
       clearInterval(timerId);
