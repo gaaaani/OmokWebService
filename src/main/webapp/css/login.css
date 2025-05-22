@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'nanumesquareneo';
+    src: url('font/NanumSquareNeo-aLt.ttf');
+
+}
+
+body {
+    font-family: 'nanumesquareneo';
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}
+#wrapper{
+    width: 398px;
+    height: 852px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: url('../img/loginbackground.png');
+}
+
+/* 로그인 박스 */
+.login-container {
+    font-family: 'nanumesquareneo';
+    width: 100%;
+    max-width: 393px;
+    padding: 40px 20px;
+    background-color: transparent;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* 로그인 폼 */
+.login-form input {
+    font-family: 'nanumesquareneo';
+    height: 61px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+/*로그인,회원가입 버튼 컨테이너*/
+.button-container {
+    font-family: 'nanumesquareneo';
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/*로그인,회원가입 버튼*/
+.button-container button {
+    font-family: 'nanumesquareneo';
+    width: 100%;
+    height: 61px;
+    padding: 12px;
+    background-color: #CFE2F4;
+    color: black;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}

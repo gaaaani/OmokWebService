@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CreateRoom
+ * Servlet implementation class MyPage
  */
-public class CreateRoom extends HttpServlet {
+public class MyPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateRoom() {
+    public MyPage() {
         super();
         // TODO Auto-generated constructor stub
     }

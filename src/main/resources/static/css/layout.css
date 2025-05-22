@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'nanumesquareneo';
+    src: url('../../../resources/static/css/font/NanumSquareNeo-aLt.ttf');
+}
+@font-face {
+    font-family: 'nanumesquareneo_b';
+    src: url('../../../resources/static/css/font/NANUMSQUARENEO-BRG.ttf');
+}
+
+body{
+    font-family: 'nanumesquareneo';
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+#wrapper{
+    width: 398px;
+    height: 852px;
+    
+}
+header{
+    font-family: 'nanumesquareneo_b';
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    border-bottom: 1px solid #717171;
+}
+.title{
+    font-size:20px;
+}
+.home_icon img {
+    width: 22px;  
+    cursor: pointer;
+}

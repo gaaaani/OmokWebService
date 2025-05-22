@@ -1,0 +1,291 @@
+@font-face {
+    font-family: 'nanumesquareneo';
+    src: url('font/NanumSquareNeo-aLt.ttf');
+}
+body{
+    font-family: 'nanumesquareneo';
+    display: flex;
+    justify-content: center;  /* 가로 중앙 정렬 */
+    /* align-items: center;      세로 중앙 정렬 */
+}
+#wrapper{
+    width: 393px;
+    height: 852px;
+    border: 1px solid black;
+    position: relative;
+}
+#useable{
+    position: relative;
+    width: 200px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: #F3B671;
+    z-index: 900;
+    text-align: center;
+    line-height: 100px;
+    display: none;
+}
+#unusealbe{
+    position: relative;
+    width: 200px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: #F3B671;
+    z-index: 900;
+    text-align: center;
+    line-height: 100px;
+    display: none;
+}
+#header{
+    position: relative;;
+    width: 393px;
+    height: 81px;
+    border-bottom: 1px solid black;
+}
+#gamename{
+    position: absolute;
+    left: 24px;
+    top: 28px;
+    font-size:20px;
+}
+#homeicon{
+    width: 22px;
+    height: 24px;
+    position: absolute;
+    left: 340px;
+    top: 30px;  
+}
+#content{
+    width: 393px;
+    height: 770px;
+}
+#register{
+    width: 393px;
+    height: 370px;
+}
+#registertext{
+    width: 393px;
+    height: 20%;
+    position: relative;
+}
+#registertext > img {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left : 16px;
+    top : 25px;
+}
+#registertext > p {
+    position: absolute;
+    left : 35px;
+    top: 22px;
+    
+}
+#createid{
+    width: 393px;
+    height: 20%;
+    position: relative;
+}
+#inputid{
+    position: absolute;
+    width: 278px;
+    height: 45px;
+    left: 18px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+#checkid{
+    position: absolute;
+    width: 68px;
+    height: 45px;
+    left: 308px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+    color: #828282;
+    background-color: #F2F2F2;
+}
+#createnickname{
+    width: 393px;
+    height: 20%;
+    position: relative;
+}
+#inputnickname{
+    position: absolute;
+    width: 278px;
+    height: 45px;
+    left: 18px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+#checknickname{
+    position: absolute;
+    width: 68px;
+    height: 45px;
+    left: 308px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+    color: #828282;
+    background-color: #F2F2F2;
+}
+#createpassword{
+    width: 393px;
+    height: 20%;
+    position: relative;
+}
+#inputpassword{
+    position: absolute;
+    width: 358px;
+    height: 45px;
+    left: 18px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+#checkpassword{
+    width: 393px;
+    height: 20%;
+    position: relative;
+}
+#checkpassword1{
+    position: absolute;
+    width: 358px;
+    height: 45px;
+    left: 18px;
+    top: 17px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+#selectcharacter{
+    width: 393px;
+    height: 280px;
+}
+#charactertext{
+    width: 393px;
+    height: 25%;
+    position: relative;
+}
+#charactertext > img {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left : 16px;
+    top : 25px;
+}
+#charactertext > p {
+    position: absolute;
+    left : 35px;
+    top: 22px;
+}
+#characterlist{
+    height: 45%;
+    position: relative;
+}
+#listbox{
+    width: 358px;
+    height: 95px;
+    position: relative;
+    left: 18px;
+    top: 14px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+#sol{
+    position: absolute;
+    left: 12px;
+    top:12px;
+    border: 1px solid black;
+}
+#lay{
+    position: absolute;
+    left: 102px;
+    top:12px;
+}
+#moli{
+    position: absolute;
+    left: 192px;
+    top:12px;
+}
+#rino{
+    position: absolute;
+    left: 282px;
+    top:12px;
+}
+.charshape{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #CFE2F4;
+}
+#bgcolor{
+    height: 30%;
+    position: relative;
+}
+#colorlist{
+    width: 358px;
+    height: 53px;
+    position: relative;
+    left: 18px;
+    top: 14px;
+    border: 1px solid #ADADAD;
+    border-radius: 10px;
+}
+.colorshape{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+#orange{
+    position: absolute;
+    left: 45px;
+    top: 4px;
+    background-color: #F3B671;
+    border: 1px solid black;
+}
+#pink{
+    position: absolute;
+    left: 100px;
+    top: 4px;
+    background-color: #F6C8E8;
+}
+#gray{
+    position: absolute;
+    left: 155px;
+    top: 4px;
+    background-color: #E9E9E9;
+}
+#skyblue{
+    position: absolute;
+    left: 210px;
+    top: 4px;
+    background-color: #CFE2F4;
+}
+#navy{
+    position: absolute;
+    left: 265px;
+    top: 4px;
+    background-color: #5874A0;
+}   
+#create{
+    width: 393px;
+    height: 122px;
+    position: relative;
+}
+#createbutton{
+    width: 355px;
+    height: 60px;
+    position: absolute;
+    left: 19px;
+    top: 31px;
+    background-color: #CFE2F4;
+    border-radius: 10px;
+}
