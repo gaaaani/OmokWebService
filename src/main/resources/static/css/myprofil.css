@@ -1,0 +1,288 @@
+/* 폰트 설정 */
+@font-face {
+  font-family: 'nanumesquareneo';
+  src: url('../../../resources/static/css/font/NanumSquareNeo-aLt.ttf');
+}
+@font-face {
+  font-family: 'nanumesquareneo_b';
+  src: url('../../../resources/static/css/font/NANUMSQUARENEO-BRG.ttf');
+}
+
+/* 전체 구조 */
+body {
+  font-family: 'nanumesquareneo';
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  color: #222;
+  background: #ffffff;
+}
+
+#wrapper {
+  width: 398px;
+  height: 852px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+/* 헤더 */
+header {
+  font-family: 'nanumesquareneo_b';
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  border-bottom: 1px solid #717171;
+}
+.title {
+  font-size: 20px;
+}
+.home_icon img {
+  width: 22px;
+  cursor: pointer;
+}
+
+/* 회원정보 제목 강조 */
+#user_section_title {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 30px 20px 10px;
+}
+
+/* 섹션 제목 */
+.section_title {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 20px 0 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+/* 회원 정보 입력 */
+#user_info_form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+#user_id_input,
+#user_pw_input {
+  width: 358px;
+  height: 48px;
+  padding: 14px 18px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  font-size: 16px;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+}
+
+#user_id_input::placeholder,
+#user_pw_input::placeholder {
+  color: #bbb;
+  font-size: 16px;
+}
+
+#pw_change_group {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+
+#change_pw_button {
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #e6e6e6;
+  font-size: 13px;
+  border: none;
+  white-space: nowrap;
+}
+
+/* 전체 프로필 변경 박스 */
+#profile_box_wrapper {
+  width: 356px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #ddd; /* 테두리 강조 */
+  padding: 30px 20px;
+  margin: 10px auto 20px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 프로필 변경 제목에 선 추가 */
+#profile_section_title {
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin: 30px 20px 10px;
+}
+
+#profile_section_title::before {
+  content: '';
+  font-size:14px;
+  display: inline-block;
+  margin-right:6px;
+  vertical-align: middle;
+}
+
+/* 선택된 캐릭터 */
+#profile_preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#selected_character_img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  padding: 10px;
+  background-color: #f4be5b;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+#character_selection_group{
+    display:flex;
+    justify-content: space-around;
+    width:100%;
+}
+
+#selected_character_name {
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: #f4be5b;
+  padding: 8px 20px;
+  border-radius: 20px;
+  text-align:center;
+}
+
+/* 캐릭터 선택 박스 (328x90) */
+#character_selection_box {
+  width: 328px;
+  height: 90px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+#character_selection_group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.character_option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #d3e8f9;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin: 0 10px;
+}
+
+.character_option:hover {
+  transform: scale(1.1);
+}
+
+/* 배경 색상 선택 박스 (328x50) */
+#background_color_box {
+  width: 328px;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  gap:10px;
+}
+
+#background_color_group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.color_option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color_option:hover {
+  border-color: #999;
+}
+
+/* 저장 버튼 */
+#save_button_container {
+  text-align: center;
+  margin-top: 20px;
+  padding: 0 20px;
+  margin:30px 20px 0;
+}
+
+#save_button {
+  width: 100%;
+  font-family: 'nanumesquareneo_b';
+  background-color: #b6d6f5;
+  color: #000;
+  font-weight: normal;
+  font-size: 16px;
+  border-radius: 14px;
+  padding: 14px 0;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.section_icon_text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arrow_icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+#save_button:hover {
+  background-color: #90bce4;
+}
+
+
