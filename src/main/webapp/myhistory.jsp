@@ -1,4 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.shinhan5goodteam.omok.model.User" %>
+<%
+    User user = (User) session.getAttribute("user");
+    String nickname = user.getNickname();
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
