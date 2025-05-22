@@ -1,13 +1,15 @@
 package com.shinhan5goodteam.omok.model;
 
+import java.sql.Date;
+
 public class History {
 	private int historyId;
-	private String startTime;
-	private String endTime;
+	private Date startTime;
+	private Date endTime;
 	private String blackId;
 	private String whiteId;
 	private String winnerId;
-	private String roomId;
+	private int roomId;
 
 	public int getHistoryId() {
 		return historyId;
@@ -17,19 +19,19 @@ public class History {
 		this.historyId = historyId;
 	}
 
-	public String getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
@@ -57,11 +59,11 @@ public class History {
 		this.winnerId = winnerId;
 	}
 
-	public String getRoomId() {
+	public int getRoomId() {
 		return roomId;
 	}
 
-	public void setRoomId(String roomId) {
+	public void setRoomId(int roomId) {
 		this.roomId = roomId;
 	}
 

@@ -1,3 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.shinhan5goodteam.omok.model.User" %>
+<%
+    User user = (User) session.getAttribute("user");
+    String user_id = user.getUserid();
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,7 +38,7 @@
       </div>
 
       <div id="user_info_form">
-        <input type="text" id="user_id_input" placeholder="happy1234" disabled />
+        <input type="text" id="user_id_input" value="<%= user_id %>" disabled />
         <div id="pw_change_group">
           <input type="password" id="user_pw_input" placeholder="************" disabled />
           <!--<button type="button" id="change_pw_button">비밀번호 변경</button>-->
