@@ -3,6 +3,8 @@
 <%
     User user = (User) session.getAttribute("user");
     String nickname = user.getNickname();
+    int points = user.getPoints();
+
 %>
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@
                 <div class="score-container">
                     <div class="score-box1">
                         <div class="score-title">👑SCORE</div>
-                        <div id="score">9541</div>
+                        <div id="score"><%= points %></div>
                     </div>
                     <div class="score-box2">
                         <div class="score-title2">오목조목킹</div>
@@ -57,10 +59,10 @@
                     <div class="result">
                         <div class="profile">
                             <img src="img/lay.png" alt="프로필 이미지" />
-                            <div class="name-box">곰돌이</div>
+                            <div class="name-box"><%= nickname %></div>
                         </div>
                         <div class="rank-box">
-                            <div class="rank">오목조목킹 : 95614점</div>
+                            <div class="rank">오목조목킹 : <%= points %> 점</div>
                             <div>⚫</div>
                         </div>
                     </div>

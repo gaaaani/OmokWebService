@@ -13,8 +13,8 @@
     <div id="wrapper">
       <div class="login-container">
         <form class="login-form" method="post" action="login">
-          <input type="text" name="userId" placeholder="아이디를 입력하세요" required />
-          <input type="password" name="userPw" placeholder="비밀번호를 입력하세요" required />
+          <input type="text" name="user_id" placeholder="아이디를 입력하세요" required />
+          <input type="password" name="user_pw" placeholder="비밀번호를 입력하세요" required />
           <div class="button-container">
             <input type="submit" value="로그인" id="loginBtn" class="btn-common">
             <input type="button" value="회원가입" id="registerBtn" class="btn-common"

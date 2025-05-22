@@ -1,11 +1,13 @@
 package com.shinhan5goodteam.omok.model;
 
+import java.sql.Date;
+
 public class User {
 	private String userid;
 	private String nickname;
 	private String userpw;
-	private String points;
-	private String createdat;
+	private int points;
+	private Date createdat;
 	private String profileimage;
 	private String profilecolor;
 
@@ -33,19 +35,19 @@ public class User {
 		this.userpw = userpw;
 	}
 
-	public String getPoints() {
+	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(String points) {
+	public void setPoints(int points) {
 		this.points = points;
 	}
 
-	public String getCreatedat() {
+	public Date getCreatedat() {
 		return createdat;
 	}
 
-	public void setCreatedat(String createdat) {
+	public void setCreatedat(Date createdat) {
 		this.createdat = createdat;
 	}
 
