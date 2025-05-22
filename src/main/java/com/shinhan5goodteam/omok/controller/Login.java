@@ -41,18 +41,18 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8"); 
+		request.setCharacterEncoding("UTF-8");
 
-		String userId = request.getParameter("userId");
-		String userPw = request.getParameter("userPw");
+		String user_id = request.getParameter("user_id");
+		String user_pw = request.getParameter("user_pw");
 
 		UserDAO userDao = new UserDAO();
-		User user = userDao.login(userId, userPw);
+		User user = userDao.login(user_id, user_pw);
 
 		if (user != null) {
 			// 로그인 성공
 			request.getSession().setAttribute("user", user);
-			response.sendRedirect("myhistory.jsp");
+			response.sendRedirect("main.html");
 		} else {
 			// 로그인 실패 시
 			request.getSession().setAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");

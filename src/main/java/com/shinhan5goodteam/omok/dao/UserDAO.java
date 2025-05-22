@@ -39,6 +39,9 @@ public class UserDAO {
                 user.setUserid(rs.getString("user_id"));
                 user.setUserpw(rs.getString("user_pw"));
                 user.setNickname(rs.getString("nickname")); 
+                user.setPoints(rs.getInt("points"));
+                user.setProfileimage(rs.getString("profile_image"));
+                user.setProfilecolor(rs.getString("profile_color"));
 
                 return user;
             }
