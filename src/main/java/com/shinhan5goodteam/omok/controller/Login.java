@@ -49,6 +49,7 @@ public class Login extends HttpServlet {
 			// 로그인 성공시 세션에 user 객체 저장
 			request.getSession().setAttribute("user", user);
 			response.sendRedirect("main.html"); //메인 페이지로 이동
+			response.sendRedirect("game.jsp");
 		} else {
 			// 로그인 실패 시 에러메세지를 세션에 저장 후 로그인 페이지로 이동
 			request.getSession().setAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");

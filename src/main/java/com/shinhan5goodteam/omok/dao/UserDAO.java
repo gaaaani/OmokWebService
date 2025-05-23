@@ -39,6 +39,9 @@ public class UserDAO {
                 user.setUserid(rs.getString("user_id"));
                 user.setUserpw(rs.getString("user_pw"));
                 user.setNickname(rs.getString("nickname"));
+                user.setProfileimage(rs.getString("profile_image"));
+                user.setProfilecolor(rs.getString("profile_color"));
+                user.setPoints(rs.getString("points"));
                 user.setPoints(rs.getInt("points"));
                 user.setProfileimage(rs.getString("profile_image"));
                 user.setProfilecolor(rs.getString("profile_color"));
@@ -111,5 +114,30 @@ public class UserDAO {
 
         }
         return false;
+    }
+
+
+    public static User versusUser(String userid){
+        String sql = "SELECT * FROM USER_TABLE WHERE user_id = ?";
+        try (Connection conn = DButil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, userid);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                User user = new User();
+                user.setUserid(rs.getString("user_id"));
+                user.setNickname(rs.getString("nickname"));
+                user.setProfileimage(rs.getString("profile_image")); 
+                user.setProfilecolor(rs.getString("profile_color"));
+                user.setPoints(rs.getString("points"));
+
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

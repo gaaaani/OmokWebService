@@ -58,12 +58,12 @@
 
 /* 오목판 */
 #omok-board {
-  width: 350px;
+  width: 393px;
   height: 350px;
-  margin: 20px auto;
+  margin: 7.5px auto;
   background-color: #fff;
   border: 1px solid #ccc;
-
+  
   /* 1px 선이 14칸 간격으로 반복되도록 설정(=15줄) */
   background-image:
     linear-gradient(to right, #ccc 1px, transparent 1px),
