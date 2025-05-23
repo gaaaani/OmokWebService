@@ -1,7 +1,7 @@
 package com.shinhan5goodteam.omok.model;
 
 public class Room {
-	private int roomId;
+	private String roomId;
 	private String userId;
 	private String roomName;
 	private String roomExplain;
@@ -11,11 +11,11 @@ public class Room {
 	private String closedAt;
 	private String status;
 
-	public int getRoomId() {
+	public String getRoomId() {
 		return roomId;
 	}
 
-	public void setRoomId(int roomId) {
+	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
 

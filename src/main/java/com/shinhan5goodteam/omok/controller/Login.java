@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
 		if (user != null) {
 			// 로그인 성공
 			request.getSession().setAttribute("user", user);
-			response.sendRedirect("myhistory.jsp");
+			response.sendRedirect("game.jsp");
 		} else {
 			// 로그인 실패 시
 			request.getSession().setAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
