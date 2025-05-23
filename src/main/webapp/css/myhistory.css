@@ -15,6 +15,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 #wrapper {
@@ -46,13 +47,22 @@ main {
     align-items: center;
     gap: 10px;
 }
-.main-title h3{
+
+.main-title h3 {
+    font-size: 20px;
+}
+
+#ranking{
+    margin-left: 215px;
+    background-color: transparent;
+    border: none;
     font-size: 20px;
 }
 .container {
     display: flex;
     gap: 30px;
 }
+
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -75,7 +85,6 @@ main {
 }
 
 .name-box {
-    background-color: #F3B671;
     width: 134px;
     height: 40px;
     border-radius: 20px;
@@ -149,8 +158,12 @@ main {
     max-height: 460px;
     overflow-y: auto;
     padding: 10px;
+    scrollbar-width: none;      
+    -ms-overflow-style: none;   
 }
-
+.myhistory-container::-webkit-scrollbar {
+    display: none;             
+}
 .result-box {
     display: flex;
     padding: 10px;
@@ -159,9 +172,11 @@ main {
     border-radius: 10px;
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
+    position: relative;
 
 }
+
 
 .result {
     display: flex;
@@ -173,6 +188,7 @@ main {
 .result .profile {
     width: 60px;
     height: 60px;
+    margin-left: -55px;
 }
 
 .rank-box {
@@ -191,7 +207,7 @@ main {
     left: 45%;
     top: 40%;
     transform: translateY(-50%);
-    width: 75px;
+    width: 70px;
     height: 28px;
     line-height: 28px;
     font-size: 12px;
@@ -216,4 +232,51 @@ main {
 
 .result-box h3 {
     padding: 10px;
+}
+
+.winlose-label {
+    position: absolute;
+    left: 75px;
+    top: 10px;
+    font-family: 'nanumesquareneo_b';
+    font-size: 10px;
+    z-index: 10;
+    background: transparent;
+}
+
+.ranking-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    height: 460px;
+    max-height: 460px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fff;
+}
+.overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+}
+
+
+.ranking-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 550px;
+    background: #cfe2f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
