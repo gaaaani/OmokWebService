@@ -6,6 +6,7 @@ import com.shinhan5goodteam.omok.model.User;
 
 public class UserDAO {
 
+    //아이디 중복 검사
     public boolean isUserIdExist(String userid) {
         String sql = "select * from USER_table where user_id = ?";
         try (Connection conn = DButil.getConnection();
@@ -41,7 +42,6 @@ public class UserDAO {
                 user.setNickname(rs.getString("nickname"));
                 user.setProfileimage(rs.getString("profile_image"));
                 user.setProfilecolor(rs.getString("profile_color"));
-                user.setPoints(rs.getString("points"));
                 user.setPoints(rs.getInt("points"));
                 user.setProfileimage(rs.getString("profile_image"));
                 user.setProfilecolor(rs.getString("profile_color"));
@@ -76,6 +76,7 @@ public class UserDAO {
         return user; // 결과가 없으면 null
     }
 
+    //닉네임 중복 검사
     public boolean isUserNicknameExist(String usernickname) {
         String sql = "select * from USER_table where nickname = ?";
         try (Connection conn = DButil.getConnection();
@@ -94,6 +95,7 @@ public class UserDAO {
         return false;
     }
 
+    //계정 생성
     public boolean createAccount(String userid, String userpassword, String usernickname, String profileimage,
             String profilebackground) {
         String sql = "insert into user_table (user_id,nickname,user_pw,profile_image,profile_color) values(?,?,?,?,?)";
@@ -116,7 +118,7 @@ public class UserDAO {
         return false;
     }
 
-
+    //findById 로 대체 가능. 
     public static User versusUser(String userid){
         String sql = "SELECT * FROM USER_TABLE WHERE user_id = ?";
         try (Connection conn = DButil.getConnection();
@@ -131,7 +133,7 @@ public class UserDAO {
                 user.setNickname(rs.getString("nickname"));
                 user.setProfileimage(rs.getString("profile_image")); 
                 user.setProfilecolor(rs.getString("profile_color"));
-                user.setPoints(rs.getString("points"));
+                user.setPoints(rs.getInt("points"));
 
                 return user;
             }
