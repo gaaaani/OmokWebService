@@ -56,19 +56,21 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
+		//들어온 command를 통해 판별
 		String command = request.getParameter("command");
 
+		//아이디 중복 검사 요청 
 		if (command.equals("checkid")){
 			String userid = request.getParameter("userid");
 			boolean isDupiclicate = userService.isUserIdDuplicate(userid);
 
 			response.getWriter().write(String.valueOf(isDupiclicate));
-		} else if (command.equals("checknickname")){
+		} else if (command.equals("checknickname")){	// 닉네임 중복검사 요청
 			String usernickname = request.getParameter("usernickname");
 			boolean isDupiclicate = userService.isUserNicknameDuplicate(usernickname);
 
 			response.getWriter().write(String.valueOf(isDupiclicate));
-		} else if (command.equals("register")){
+		} else if (command.equals("register")){	// 계정 생성 요청
 			String userid = request.getParameter("userid");
 			String userpassword = request.getParameter("userpassword");
 			String usernickname = request.getParameter("usernickname");
