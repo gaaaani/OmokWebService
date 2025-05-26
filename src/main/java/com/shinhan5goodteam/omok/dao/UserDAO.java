@@ -1,6 +1,8 @@
 package com.shinhan5goodteam.omok.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.shinhan5goodteam.omok.model.User;
 
@@ -142,4 +144,29 @@ public class UserDAO {
         }
         return null;
     }
+    //랭킹 데이터
+    public List<User> getRanking() {
+        List<User> rankingList = new ArrayList<>();
+        String sql = "SELECT USER_ID, NICKNAME, POINTS, PROFILE_IMAGE, PROFILE_COLOR FROM USER_TABLE ORDER BY POINTS DESC";
+        try (Connection conn = DButil.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                User user = new User();
+                user.setUserid(rs.getString("user_id"));
+                user.setNickname(rs.getString("nickname"));
+                user.setPoints(rs.getInt("points"));
+                user.setProfileimage(rs.getString("profile_image"));
+                user.setProfilecolor(rs.getString("profile_color"));
+                rankingList.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rankingList;
+}
+
+
+
 }

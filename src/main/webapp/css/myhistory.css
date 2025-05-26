@@ -264,19 +264,172 @@ main {
 }
 
 
+/* 랭킹 모달 스타일 */
 .ranking-modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
-    height: 550px;
-    background: #cfe2f4;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    width: 300px; /* 모달 너비 */
+    background: #cfe2f4; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2); 
     z-index: 1001;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+    overflow: hidden;
+}
+
+/* 제목 스타일 */
+.ranking-modal h3 {
+    font-size: 20px;
+    font-family: 'nanumesquareneo_b';
+    color: #464646;
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+/* 랭킹 리스트 스타일 */
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 280px; 
+    overflow-y: auto; 
+    border: 1px solid #ddd; 
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+/* 스크롤바 스타일 */
+.ranking-list::-webkit-scrollbar {
+    width: 8px;
+}
+.ranking-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+.ranking-list::-webkit-scrollbar-track {
+    background-color: #f3f3f3;
+}
+
+/* 랭킹 리스트 항목 */
+.ranking-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee; 
+    gap: 5px; 
+}
+
+/* 순위 텍스트 */
+.ranking-list li .rank-number {
+    width: 40px; 
+    font-size: 16px;
+    font-weight: bold;
+    color: #475569;
+        text-align: left;
+    flex-shrink: 0; 
+    margin-left: 5px;
+}
+
+/* 프로필과 닉네임 컨테이너 */
+.ranking-list li .rank-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;   
+    width: 120px;
+    flex-shrink: 0;
+}
+
+/* 프로필 이미지 배경 */
+.ranking-list li .rank-info .profile {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f3f3f3; 
+}
+
+/* 프로필 이미지 */
+.ranking-list li .rank-info .profile img {
+    width: 80%; /* 이미지 크기 */
+    height: auto;
+    border-radius: 50%; /* 이미지도 동그랗게 */
+}
+
+/* 닉네임 스타일 */
+.ranking-list li .rank-info .nickname {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white; 
+    border-radius: 5px; 
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left; 
+    background-color: inherit; 
+}
+
+/* 점수 스타일 */
+.ranking-list li .rank-points {
+    width: 60px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #5874A0;
+    text-align: left;
+    flex-shrink: 0; /* 점수가 줄어들지 않도록 설정 */
+}
+
+/* 현재 로그인한 사용자 랭킹 스타일 */
+.current-user-ranking {
+    display: flex;
+    margin-top: -10px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #5874a0;
+    border-radius: 10px;
+    height: 20px;
+    text-align: center;
+    align-items: center;
+    gap:10px;
+    font-family: 'nanumesquareneo_b';
+}
+
+/* 현재 로그인한 사용자 프로필 이미지 */
+.current-user-ranking .profile {
+    width: 35px;
+    height: 35px;
+}
+
+.current-user-ranking .profile img {
+    width: 80%;
+    height: auto;
+    border-radius: 50%;
+}
+
+/* 현재 로그인한 사용자 닉네임 */
+.current-user-ranking .nickname {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: inherit; /* 프로필 배경색과 동일하게 설정 */
+}
+
+/* 현재 로그인한 사용자 점수 스타일 */
+.current-user-ranking .rank-points {
+    font-size: 14px;
+    color: #5874A0;
 }
