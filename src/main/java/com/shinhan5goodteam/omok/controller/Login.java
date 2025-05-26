@@ -18,23 +18,19 @@ public class Login extends HttpServlet {
 
 	public Login() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -43,18 +39,19 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String user_id = request.getParameter("user_id");
-		String user_pw = request.getParameter("user_pw");
+		String user_id = request.getParameter("user_id"); //로그인 폼에서 아이디 받기
+		String user_pw = request.getParameter("user_pw"); // 로그인 폼에서 비밀번호 받기
 
-		UserDAO userDao = new UserDAO();
+		UserDAO userDao = new UserDAO(); //DAO 객체 생성
 		User user = userDao.login(user_id, user_pw);
 
 		if (user != null) {
-			// 로그인 성공
+			// 로그인 성공시 세션에 user 객체 저장
 			request.getSession().setAttribute("user", user);
-			response.sendRedirect("main.html");
+			response.sendRedirect("main.html"); //메인 페이지로 이동
+			response.sendRedirect("game.jsp");
 		} else {
-			// 로그인 실패 시
+			// 로그인 실패 시 에러메세지를 세션에 저장 후 로그인 페이지로 이동
 			request.getSession().setAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
 			response.sendRedirect("login.jsp");
 		}

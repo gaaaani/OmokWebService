@@ -58,12 +58,12 @@
 
 /* 오목판 */
 #omok-board {
-  width: 350px;
+  width: 393px;
   height: 350px;
-  margin: 20px auto;
+  margin: 7.5px auto;
   background-color: #fff;
   border: 1px solid #ccc;
-
+  
   /* 1px 선이 14칸 간격으로 반복되도록 설정(=15줄) */
   background-image:
     linear-gradient(to right, #ccc 1px, transparent 1px),
@@ -78,20 +78,30 @@
   /* ::after 를 위한 기준 */
 }
 
-/* 중앙 별목 찍기 */
+.boardbutton {
+  position: absolute !important;
+  width: 20px !important;
+  height: 20px !important;
+  
+  
+  cursor: pointer !important;
+   z-index: 10 !important;
+}
+
+/* 중앙 별목 찍기 
 #omok-board::after {
   content: "";
-  position: absolute;
+  position: absolute;*/
   /* 점 크기 조절 */
-  width: 8px;
+  /* width: 8px;
   height: 8px;
   background-color: #000;
-  border-radius: 50%;
+  border-radius: 50%; */
   /* 중앙에 정렬 */
-  top: 50%;
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-}
+  transform: translate(-50%, -50%); */
+/* } */
 
 .info-panel {
   width: 100%;
