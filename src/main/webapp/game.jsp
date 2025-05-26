@@ -46,45 +46,44 @@
       </div>
     </div>
 
-    <div id="omok-board" style="position: relative;">
-    </div>
+    <div id="omok-board" style="position: relative;"></div>
 
     <div class="info-panel">
       <div class="info-panel-inside">
         <div id="player-info">
           <div id="left-user">
             <div class="avatar-bg" style="background-color: #F8BBD0;">
-              <img src="img/lay.png" id="leftUser">
+              <img src="img/lay.png" alt="부엉이" id="leftUser">
             </div>
             <div class="name-stone">
-              <span class="player-name"><%= user1.getNickname() %></span>
+              <span class="player-name"><%= userId %></span>
               <span class="stone">⚫</span>
             </div>
-            <div class="score"><%= user1.getPoints() %>점</div>
+            <div class="score">오목조목킹 9514점</div>
+
           </div>
 
           <div id="timer">
             <span id="left-time">30</span> ⏱ <span id="right-time">30</span>
           </div>
 
-
           <div id="right-user">
             <div class="avatar-bg" style="background-color: #E9E9E9;">
-              <img src="img/sol.png" id="rightUser">
+
+              <img src="img/sol.png" alt="곰돌이" id="rightUser">
             </div>
             <div class="name-stone">
-              <span id="user2" class="player-name"><%= user2.getNickname() %></span>
+              <span id="yourId" class="player-name"></span>
               <span class="stone">⚪</span>
             </div>
-            <div id="user2point" class="score"><%= user2.getPoints() %>점</div>
+            <div class="score">오목조목킹 9514점</div>
+
           </div>
         </div>
         <button id="move-button" disabled>착수</button>
       </div>
       <button id="exit-button">나가기</button>
     </div>
-
-
 
     <div id="popup-overlay">
       <!-- 1) 나가기 확인 팝업 -->
@@ -123,6 +122,7 @@
   </div>
 
   <script>
+
   //바둑돌 생성
   //바둑돌 이벤트
   const board = document.getElementById("omok-board");
@@ -314,6 +314,9 @@
     //   switchTurn();
     // });
 
+
+    // 페이지 로드 시 타이머 시작
+    // window.addEventListener('load', startTimer);
     /*
     팝업 제어 함수 모음
     */
@@ -375,3 +378,4 @@
 </body>
 
 </html>
+
