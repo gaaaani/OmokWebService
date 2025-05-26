@@ -7,7 +7,7 @@
   //유저 객체 생성된
   //user1 본인. user2는 상대방.
   User user1 = (User) session.getAttribute("user");
-  User user2 = (User) session.getAttribute("user");
+  User user2 = null;
 
   //방 객체 생성. 원래는 생성된 Room 객체를 가져옴.
   //방 만들기, 방 입장 시 Room 데이터를 어떻게 가져올지 정해야함.
@@ -20,7 +20,7 @@
   //방에 입장한 유저의 경우 본인의 아이디와 룸생성자의 id가 다르기때문에
   //방 생성자의 객체를 가져와 본인 클라이언트에 적용하기 위함.
   if ( room.getUserId() != user1.getUserid()){
-      user2 = UserDAO.versusUser(room.getUserId());
+      user2 = UserDAO.findById(room.getUserId());
       System.out.println(user2.getUserid());
   }
 
@@ -46,45 +46,44 @@
       </div>
     </div>
 
-    <div id="omok-board" style="position: relative;">
-    </div>
+    <div id="omok-board" style="position: relative;"></div>
 
     <div class="info-panel">
       <div class="info-panel-inside">
         <div id="player-info">
           <div id="left-user">
             <div class="avatar-bg" style="background-color: #F8BBD0;">
-              <img src="img/lay.png" id="leftUser">
+              <img src="img/sol.png" id="leftUser">
             </div>
             <div class="name-stone">
-              <span class="player-name"><%= user1.getNickname() %></span>
+              <span class="player-name"><%= userId %></span>
               <span class="stone">⚫</span>
             </div>
-            <div class="score"><%= user1.getPoints() %>점</div>
+            <div class="score">오목조목킹 9514점</div>
+
           </div>
 
           <div id="timer">
             <span id="left-time">30</span> ⏱ <span id="right-time">30</span>
           </div>
 
-
           <div id="right-user">
             <div class="avatar-bg" style="background-color: #E9E9E9;">
-              <img src="img/sol.png" id="rightUser">
+
+              <img src="img/sol.png" alt="곰돌이" id="rightUser">
             </div>
             <div class="name-stone">
-              <span id="user2" class="player-name"><%= user2.getNickname() %></span>
+              <span id="yourId" class="player-name"></span>
               <span class="stone">⚪</span>
             </div>
-            <div id="user2point" class="score"><%= user2.getPoints() %>점</div>
+            <div class="score">오목조목킹 9514점</div>
+
           </div>
         </div>
         <button id="move-button" disabled>착수</button>
       </div>
       <button id="exit-button">나가기</button>
     </div>
-
-
 
     <div id="popup-overlay">
       <!-- 1) 나가기 확인 팝업 -->
@@ -99,7 +98,7 @@
         <h2>WIN !!</h2>
         <div>
           <div class="avatar-bg" style="background-color: #E9E9E9;">
-            <img src="img/lay.png" alt="win" class="popup-avatar" id="winner-img">
+            <img src="" alt="win" class="popup-avatar" id="winner-img">
           </div>
           <p id="winner-text"><%= user1.getNickname() %> 🏆 +100점!!</p>
         </div>
@@ -111,7 +110,7 @@
       <div id="loser-popup" class="popup-box">
         <h2>LOSE !!</h2>
         <div class="avatar-bg" style="background-color: #F8BBD0;">
-          <img src="img/sol.png" alt="lose" class="popup-avatar" id="lose-img">
+          <img src="" alt="lose" class="popup-avatar" id="lose-img">
         </div>
         <p id="loser-text"><%= user1.getNickname() %> 😢 −100점!!</p>
         <div class="divider"></div>
@@ -123,6 +122,7 @@
   </div>
 
   <script>
+
   //바둑돌 생성
   //바둑돌 이벤트
   const board = document.getElementById("omok-board");
@@ -167,30 +167,35 @@
 
     //js에서 사용하기 위해 객체 저장
     let user1 = {
-      type: "isUser",
+      type: "user",
       id : "<%= user1.getUserid() %>",
       point: "<%= user1.getPoints() %>",
       nickname: "<%= user1.getNickname() %>",
       profileimg: "<%= user1.getProfileimage() %>",
       profilecolor: "<%= user1.getProfilecolor() %>"
     }
+    document.querySelector("#leftUser").src = "img/"+user1.profileimg+".png";
+    document.querySelector(".popup-avatar").src = "img/"+user1.profileimg+".png";
+    
     let room = {
       roomId: "<%= room.getRoomId() %>",
-      userId: "<%= room.getUserId() %>",
-      blackId: "<%= room.getBlackId() %>",
-      whiteId: "<%= room.getWhiteId() %>",
+      createuserId: "<%= room.getUserId() %>",
       status: "<%= room.getStatus() %>"
     }
     let user2;
 
-    if ( user2 != null){
+    if ( "<%= user2 %>" != null){
       user2 = {
-            id : "<%= user2.getUserid() %>",
-            point: "<%= user2.getPoints() %>",
-            nickname: "<%= user2.getNickname() %>",
-            profileimg: "<%= user2.getProfileimage() %>",
-            profilecolor: "<%= user2.getProfilecolor() %>"
-        }
+          type: "user",
+          id : "<%= user2.getUserid() %>",
+          point: "<%= user2.getPoints() %>",
+          nickname: "<%= user2.getNickname() %>",
+          profileimg: "<%= user2.getProfileimage() %>",
+          profilecolor: "<%= user2.getProfilecolor() %>"
+      }
+      document.querySelector("#user2").innerHTML = user2.nickname;
+      document.querySelector("#user2point").innerHTML = user2.point;
+      document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
     }
     
     //소켓 설정
@@ -201,13 +206,12 @@
       socket.onopen = function() {  //소켓 입장 시 실행
         socket.send(JSON.stringify(user1));
       };
+
       socket.onmessage = function(e){ // 서버에서 Onmessage 함수 발동시 실행.
         console.log(e.data);
-        if ( e.data.trim().toLowerCase() == "start"){ // 서버에서 start 전송 시 게임 시작
-          gameStart();
-        } else if (e.data.startsWith("{")) { //{ 로 판단해 객체 정보가 옴을 판단
+        if (e.data.startsWith("{")) { //{ 로 판단해 객체 정보가 옴을 판단
           const data1 = JSON.parse(e.data); //데이터를 json형태로 처리(기존엔 string)
-          if (data1.type == "isUser") { // 넘어온 객체가 user인 경우. 즉 방을 만든 유저가 방에 들어온 유저의 객체를 가져오기 위함 
+          if (data1.type == "user") { // 넘어온 객체가 user인 경우. 즉 방을 만든 유저가 방에 들어온 유저의 객체를 가져오기 위함 
             console.log("get IN")
             user2 = {
               id: data1.id,
@@ -219,10 +223,13 @@
           // 가져온 정보로 본인의 클라이언트 적용
           document.querySelector("#user2").innerHTML = user2.nickname;
           document.querySelector("#user2point").innerHTML = user2.point;
-          document.getElementById("#rightUser").src = "img/"+user2.profileimg+".png";
+          document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
+          } else if (data1.type == "move"){ //넘어온 객체가 move인 경우. 서버에서 바둑판 정보를 보낸것. 방id, 현재 차례 유저 등
+
           }
         }
       };
+
       socket.onclose = function() { //소켓 연결 종료 시 실행
         socket.close();
         console.log('서버랑 연결이 끊어졌습니다');
@@ -314,6 +321,9 @@
     //   switchTurn();
     // });
 
+
+    // 페이지 로드 시 타이머 시작
+    // window.addEventListener('load', startTimer);
     /*
     팝업 제어 함수 모음
     */
@@ -375,3 +385,4 @@
 </body>
 
 </html>
+

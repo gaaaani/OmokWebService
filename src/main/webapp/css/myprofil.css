@@ -149,15 +149,24 @@ header {
   margin-bottom: 20px;
 }
 
-#selected_character_img {
-  width: 100px;
-  height: 100px;
+.profile_circle {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  padding: 10px;
-  background-color: #f4be5b;
-  object-fit: cover;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
+
+
+#selected_character_img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 
 #character_selection_group{
     display:flex;
@@ -166,13 +175,12 @@ header {
 }
 
 #selected_character_name {
-  font-size: 15px;
-  font-weight: bold;
   color: white;
-  background-color: #f4be5b;
-  padding: 8px 20px;
+  font-size: 14px;
+  padding: 5px 12px;
   border-radius: 20px;
-  text-align:center;
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* 캐릭터 선택 박스 (328x90) */
@@ -248,25 +256,21 @@ header {
   border-color: #999;
 }
 
-/* 저장 버튼 */
-#save_button_container {
-  text-align: center;
-  margin-top: 20px;
-  padding: 0 20px;
-  margin:30px 20px 0;
+.save_button_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 #save_button {
-  width: 100%;
-  font-family: 'nanumesquareneo_b';
-  background-color: #b6d6f5;
-  color: #000;
-  font-weight: normal;
+  background-color: #cce0f5;
+  color: black;
   font-size: 16px;
-  border-radius: 14px;
-  padding: 14px 0;
-  transition: background-color 0.3s;
+  padding: 10px 30px;
   border: none;
+  border-radius: 16px;
+  cursor: pointer;
 }
 
 .section_icon_text {

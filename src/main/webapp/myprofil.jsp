@@ -1,10 +1,41 @@
+<!-- myprofil.jsp -->
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
 <%
     User user = (User) session.getAttribute("user");
-    String user_id = user.getUserid();
+    if (user == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
 
+    String userid = user.getUserid();
+    String password = user.getUserpw();
+    String maskedPw = "*".repeat(password.length());
+
+    String profileImage = user.getProfileimage();
+    if (profileImage == null || profileImage.isBlank()) profileImage = "moli";
+
+    String profileColor = user.getProfilecolor();
+    if (profileColor == null || profileColor.isBlank()) profileColor = "orange";
+
+    String profileName = "캐릭터";
+    switch (profileImage) {
+        case "moli": profileName = "모리"; break;
+        case "rino": profileName = "리노"; break;
+        case "sol": profileName = "솔"; break;
+        case "lay": profileName = "레이"; break;
+    }
+
+    String bgColor = "#ffffff";
+    switch (profileColor) {
+        case "orange": bgColor = "#F3B671"; break;
+        case "pink": bgColor = "#F2BFCB"; break;
+        case "gray": bgColor = "#A4B2C0"; break;
+        case "light-purple": bgColor = "#D8CFE2"; break;
+        case "navy": bgColor = "#5874A0"; break;
+    }
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,11 +45,49 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/myprofil.css">
+  <style>
+    .profile_circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+    #selected_character_img {
+      width: 100px;
+      height: 100px;
+    }
+    #selected_character_name {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      padding: 5px 0;
+      border-radius: 10px;
+      width: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #save_button_container {
+      width: 100%;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+    #save_button {
+      width: 90%;
+      padding: 12px 0;
+      background-color: #BBD7F0;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
   <div id="wrapper">
-
-    <!-- 상단 헤더 -->
     <header>
       <div class="title">5조은목</div>
       <div class="home_icon">
@@ -28,70 +97,60 @@
       </div>
     </header>
 
-    <!-- 메인 영역 -->
     <main>
-
-      <!-- 회원정보 수정 -->
       <div id="user_section_title">
         <img src="img/arrow.png" alt="arrow" style="width:14px; height:14px; margin-right:8px;">
         회원 정보 
       </div>
 
       <div id="user_info_form">
-        <input type="text" id="user_id_input" value="<%= user_id %>" disabled />
+        <input type="text" id="user_id_input" value="<%= userid %>" disabled />
         <div id="pw_change_group">
-          <input type="password" id="user_pw_input" placeholder="************" disabled />
-          <!--<button type="button" id="change_pw_button">비밀번호 변경</button>-->
+          <input type="password" id="user_pw_input" value="<%= maskedPw %>" disabled />
         </div>
       </div>
 
-      <!-- 프로필 변경 박스 -->
-    
-    <div id="profile_section_title">
+      <div id="profile_section_title">
         <span class="section_icon_text">
-        <img src="img/arrow.png" alt="arrow" class="arrow_icon" />
-        프로필 변경
+          <img src="img/arrow.png" alt="arrow" class="arrow_icon" />
+          프로필 변경
         </span>
-    </div>
+      </div>
 
-    <div id="profile_box_wrapper">
-        <!-- 선택된 캐릭터 -->
+      <div id="profile_box_wrapper">
         <div id="profile_preview">
-          <img src="img/moli.png" alt="선택된 캐릭터" id="selected_character_img" />
-          <div id="selected_character_name">모리</div>
+          <div class="profile_circle" style="background-color:<%= bgColor %>">
+            <img src="img/<%= profileImage %>.png" alt="선택된 캐릭터" id="selected_character_img" />
+          </div>
+          <div id="selected_character_name" style="background-color:<%= bgColor %>"><%= profileName %></div>
         </div>
 
-        <!-- 캐릭터 선택 -->
         <div id="character_selection_box">
           <div id="character_selection_group" class="character_selection_group">
-            <img src="img/moli.png" id="moli" alt="모리" class="character_option" data-name="모리"/>
+            <img src="img/moli.png" id="moli" alt="모리" class="character_option" data-name="모리" />
             <img src="img/rino.png" id="rino" alt="리노" class="character_option" data-name="리노" />
             <img src="img/sol.png" id="sol" alt="솔" class="character_option" data-name="솔" />
             <img src="img/lay.png" id="lay" alt="레이" class="character_option" data-name="레이" />
           </div>
         </div>
 
-        <!-- 배경 색상 선택 -->
         <div id="background_color_box">
           <div id="background_color_group" class="background_color_selection_container">
-            <div id="orange" class="color_option" style="background-color: #F3B671;" data-color="#f4be5b"></div>
-            <div id="pink" class="color_option" style="background-color: #F6C8E8;"data-color="#f4c2d7"></div>
-            <div id="gray" class="color_option" style="background-color: #DADADA;"data-color="#d3d3d3"></div>
-            <div id="skyblue" class="color_option" style="background-color: #A4B2C0;"data-color="#cbd3db"></div>
-            <div id="navy" class="color_option" style="background-color: #5874A0;"data-color="#506fa1"></div>
+            <div id="orange" class="color_option" style="background-color: #F3B671;" data-color="#F3B671"></div>
+            <div id="pink" class="color_option" style="background-color: #F2BFCB;" data-color="#F2BFCB"></div>
+            <div id="gray" class="color_option" style="background-color: #A4B2C0;" data-color="#A4B2C0"></div>
+            <div id="light-purple" class="color_option" style="background-color: #D8CFE2;" data-color="#D8CFE2"></div>
+            <div id="navy" class="color_option" style="background-color: #5874A0;" data-color="#5874A0"></div>
           </div>
         </div>
       </div>
 
-      <!-- 저장 버튼 -->
       <div id="save_button_container" class="save_button_container">
         <button id="save_button">저장</button>
       </div>
-
     </main>
-  </div>
 
-  <!-- 스크립트 -->
-  <script src="myprofilscript.js"></script>
+    <script src="myprofilscript.js"></script>
+  </div>
 </body>
 </html>
