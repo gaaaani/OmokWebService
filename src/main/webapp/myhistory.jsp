@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
 <%
@@ -35,7 +36,7 @@
             <div class="container">
                 <div class="profile-container">
                     <div class="profile">
-                        <img src="img/lay.png" alt="프로필 이미지" />
+                        <img src="img/<%= user.getProfileimage() %>.png" alt="프로필 이미지" />
                     </div>
                     <div class="name-box"><%= nickname %></div>
                 </div>

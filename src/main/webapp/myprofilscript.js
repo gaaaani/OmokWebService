@@ -1,52 +1,83 @@
+
+//myprofilscript.js
 document.addEventListener('DOMContentLoaded', () => { 
   let selectedCharacter = null;
   let selectedColor = null;
 
-  // 캐릭터 클릭 이벤트
   document.querySelectorAll('.character_option').forEach(char => {
-    char.addEventListener('click', () => {
-      selectedCharacter = {
-        src: char.src,
-        name: char.getAttribute('data-name')
-      };
-
-      // 시각적 선택 표시 (선택된 이미지 테두리 강조 등)
-      document.querySelectorAll('.character_option').forEach(c => {
-        c.style.border = 'none';
-      });
-      char.style.border = '2px solid #4a90e2';
+  char.addEventListener('click', () => {
+    // 기존 선택된 항목에서 selected 제거
+    document.querySelectorAll('.character_option').forEach(c => {
+      c.classList.remove("selected");
+      c.style.border = 'none';
     });
+
+    // 현재 선택 항목에 selected 추가
+    char.classList.add("selected");
+    char.style.border = '2px solid #4a90e2';
   });
+});
 
   // 배경색 클릭 이벤트
   document.querySelectorAll('.color_option').forEach(color => {
-    color.addEventListener('click', () => {
-      selectedColor = color.getAttribute('data-color');
-
-      document.querySelectorAll('.color_option').forEach(c => {
-        c.style.outline = 'none';
-      });
-      color.style.outline = '2px solid #4a90e2';
+  color.addEventListener('click', () => {
+    document.querySelectorAll('.color_option').forEach(c => {
+      c.classList.remove("selected");
+      c.style.outline = 'none';
     });
+
+    color.classList.add("selected");
+    color.style.outline = '2px solid #4a90e2';
   });
+});
 
-  // 저장 버튼 클릭
-  document.getElementById('save_button').addEventListener('click', () => {
-    if (!selectedCharacter || !selectedColor) {
-      alert('캐릭터와 배경색을 모두 선택해주세요.');
-      return;
-    }
 
-    // 미리보기 이미지/이름 변경
-    const previewImg = document.getElementById('selected_character_img');
-    const previewName = document.getElementById('selected_character_name');
+  document.getElementById("save_button").addEventListener("click", () => {
+  const selectedCharacter = document.querySelector(".character_option.selected");
+  const selectedColor = document.querySelector(".color_option.selected");
 
-    previewImg.src = selectedCharacter.src;
-    previewImg.style.backgroundColor = selectedColor;
+  if (!selectedCharacter || !selectedColor) {
+    alert("캐릭터와 배경색을 모두 선택해주세요.");
+    return;
+  }
 
-    previewName.textContent = selectedCharacter.name;
-    previewName.style.backgroundColor = selectedColor;
+  const characterId = selectedCharacter.id; // 예: moli, rino, ...
+  const colorId = selectedColor.id; // 예: pink, navy, ...
 
-    alert('프로필이 변경되었습니다!');
-  });
+  fetch("updateProfile", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `character=${characterId}&backgroundColor=${colorId}`
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.result === "success") {
+        // 저장 성공 후 UI 즉시 반영
+        const previewImg = document.getElementById("selected_character_img");
+        const previewName = document.getElementById("selected_character_name");
+        const circleBox = document.querySelector(".profile_circle"); 
+
+        // 이미지 변경
+        previewImg.src = selectedCharacter.src;
+
+        // 배경색 변경 (data-color는 실제 색상코드)
+        const bgColor = selectedColor.getAttribute("data-color");
+        circleBox.style.backgroundColor = bgColor;  
+        previewName.style.backgroundColor = bgColor;
+
+        // 이름 변경
+        const name = selectedCharacter.getAttribute("data-name");
+        previewName.textContent = name;
+
+        alert("프로필이 저장되었습니다!");
+      } else {
+        alert("저장 실패: " + data.message);
+      }
+    })
+    .catch(error => {
+      alert("요청 중 오류가 발생했습니다.");
+      console.error(error);
+    });
+});
+
 });
