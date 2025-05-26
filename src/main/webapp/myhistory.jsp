@@ -1,5 +1,4 @@
 
-<!-- filepath: c:\java\workspace\OmokWebService\src\main\webapp\myhistory.jsp -->
 <%@page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
@@ -68,9 +67,6 @@
     <div id="wrapper">
         <header>
             <div class="title">5조은목</div>
-            <div class="home-icon">
-                <img src="img/tomainicon.png" alt="홈" />
-            </div>
         </header>
         <main>
             <!-- 메인 타이틀, 랭킹 버튼튼-->

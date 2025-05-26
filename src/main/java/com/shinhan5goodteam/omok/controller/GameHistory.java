@@ -49,9 +49,7 @@ public class GameHistory extends HttpServlet {
             return;
         }
         String userId = user.getUserid();
-        String nickname = user.getNickname();
-        int points = user.getPoints();
-
+        
         // 전적 리스트 및 정렬
         HistoryDAO dao = new HistoryDAO();
         List<History> historyList = dao.getUserHistories(userId);

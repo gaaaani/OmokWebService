@@ -1,12 +1,11 @@
-
-
 @font-face {
     font-family: 'nanumesquareneo';
     src: url('font/NanumSquareNeo-aLt.ttf');
 }
+
 @font-face {
     font-family: 'nanumesquareneo_b';
-    src: url('font/NANUMSQUARENEO-BRG.ttf');
+    src: url('font/NanumSquareNeo-bRg.ttf');
 }
 
 body{
@@ -23,26 +22,28 @@ body{
 
 
 }
-header{
+header {
     font-family: 'nanumesquareneo_b';
-    padding: 25px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
     font-size: 20px;
     border-bottom: 1px solid #717171;
     position: relative;
+    height: 20px;
+    padding-right: 20px;
 }
-.title{
-    font-size:20px;
-    margin-top: 10px;
+.header-icon{
+	display:flex;
+    gap:10px;
+    align-items: center;
+	
 }
 .record_icon img {
 
     width: 22px;
     cursor: pointer;
-    margin-left : 190px;
-    padding-top: 5px;
-    padding-left: 5px;
+
 }
 .mypage_icon img {
     width: 30px;
@@ -54,11 +55,35 @@ header{
 
 }
 
+main{
+	padding: 0 20px;
 
+}
+.main-title {
+    color: #646464;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #dbdbdb;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 0 15px;
+    border-radius: 20px;
+    align-items: center;
+}
+.update-icon{
+    width:20px;
+    height:20px;
+}
 .main-container {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    height: 610px;
     overflow-y: auto;
-    height: calc(100% - 150px);
+    padding: 15px;
+    gap:20px;
 }
 
 .room-box {
@@ -68,19 +93,18 @@ header{
     background-color: #f4f4f4;
     border-radius: 10px;
     padding: 12px;
-    margin-bottom: 26px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .room-left .room-title {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     font-family: 'nanumesquareneo';
     margin-bottom: 5px;
 }
 
 .room-left .room-subtitle {
-    font-size: 12px;
+    font-size: 15px;
     font-family: 'nanumesquareneo';
     color: #686868;
 }
@@ -107,7 +131,7 @@ header{
 
 
 .createbtn {
-    width: 300px;
+    width: 360px;
     height: 61px;
     text-align: left;
     border-radius: 10px;
