@@ -56,10 +56,10 @@
               <img src="img/sol.png" id="leftUser">
             </div>
             <div class="name-stone">
-              <span class="player-name"><%= userId %></span>
+              <span class="player-name"><%= user1.getNickname() %></span>
               <span class="stone">⚫</span>
             </div>
-            <div class="score">오목조목킹 9514점</div>
+            <div class="score">오목조목킹 <%= user1.getPoints() %></div>
 
           </div>
 
@@ -73,10 +73,10 @@
               <img src="img/sol.png" alt="곰돌이" id="rightUser">
             </div>
             <div class="name-stone">
-              <span id="yourId" class="player-name"></span>
+              <span id="user2" class="player-name"><%= user2.getNickname() %></span>
               <span class="stone">⚪</span>
             </div>
-            <div class="score">오목조목킹 9514점</div>
+            <div id="user2point" class="score">오목조목킹 <%= user2.getPoints() %></div>
 
           </div>
         </div>
@@ -123,47 +123,68 @@
 
   <script>
 
-  //바둑돌 생성
-  //바둑돌 이벤트
-  const board = document.getElementById("omok-board");
-    const boardsize = 375;
-    const cellCnt = 15;
-    const cellGap = boardsize / (cellCnt - 1);
-    for(let y = 0; y<cellCnt; y++) {
-      for(let x = 0; x<cellCnt; x++) {
-          const cell = document.createElement("div");
-          cell.className = "boardbutton";
-          cell.setAttribute("data-x", x.toString());
-          cell.setAttribute("data-y", y.toString());
-          cell.style.backgroundColor = "rgba(255,0,0,0.3)";
+  function drawOmok() {
+    	  var board = document.getElementById("omok-board");
+    	  var size = 15;
+    	  var boardSize = 398;
+    	  var offset = 16;
+    	  var gap = (boardSize - 2 * offset) / (size - 1);
 
-          cell.style.borderRadius = "50%";
-          cell.style.marginLeft = "-10px";
-          
-          cell.style.position = "absolute";
-          cell.style.left = Math.round(x * cellGap) + 'px';
-          cell.style.top  = Math.round(y * cellGap) + 'px';
-          cell.style.width = "15px";
-          cell.style.height = "15px";
-          cell.style.marginLeft = "-10px";
-          cell.style.marginTop = "-10px";
-          
-          cell.style.cursor = "pointer";
-          cell.style.zIndex = 10;
-          cell.addEventListener("click", function(e) {
-            if(!(x == 0 || y == 0)) {
-              const dx = this.dataset.x;
-                const dy = this.dataset.y;
-                console.log("(x, y)" + "(" + dx+" "+dy +")");
-            }
-            
-          });
-          
-          if(!(x == 0 || y == 0)) {
-          board.appendChild(cell);
-          }
-      }
-    }
+    	  board.innerHTML = "";
+
+    	  // 가로줄
+    	  for (var i = 0; i < size; i++) {
+    	    var hLine = document.createElement("div");
+    	    hLine.className = "horizon";
+    	    hLine.style.position = "absolute";
+    	    hLine.style.height = "1px";
+    	    hLine.style.backgroundColor = "#333";
+    	    hLine.style.left = offset + "px";
+    	    hLine.style.top = Math.round(offset + i * gap) + "px";
+    	    hLine.style.width = Math.round((size - 1) * gap) + "px";
+    	    board.appendChild(hLine);
+    	  }
+
+    	  // 세로줄
+    	  for (var i = 0; i < size; i++) {
+    	    var vLine = document.createElement("div");
+    	    vLine.className = "vertical";
+    	    vLine.style.position = "absolute";
+    	    vLine.style.width = "1px";
+    	    vLine.style.backgroundColor = "#333";
+    	    vLine.style.top = offset + "px";
+    	    vLine.style.left = Math.round(offset + i * gap) + "px";
+    	    vLine.style.height = Math.round((size - 1) * gap) + "px";
+    	    board.appendChild(vLine);
+    	  }
+
+    	  // 가운데 별
+    	  var star = document.createElement("div");
+    	  star.className = "star";
+    	  star.style.left = Math.round(offset + 7 * gap) + "px";
+    	  star.style.top = Math.round(offset + 7 * gap) + "px";
+    	  board.appendChild(star);
+
+    	  // 클릭 가능한 cell
+    	  for (var y = 0; y < size; y++) {
+    	    for (var x = 0; x < size; x++) {
+    	      var cell = document.createElement("div");
+    	      cell.className = "cell";
+    	      cell.style.left = Math.round(offset + x * gap) + "px";
+    	      cell.style.top = Math.round(offset + y * gap) + "px";
+    	      cell.dataset.x = x;
+    	      cell.dataset.y = y;
+    	      cell.addEventListener("click", function () {
+    	        console.log("(x: " + this.dataset.x + ", y: " + this.dataset.y + ")");
+    	      });
+    	      board.appendChild(cell);
+    	    }
+    	  }
+    	}
+    
+    document.addEventListener("DOMContentLoaded", function () {       
+    	  drawOmok();   
+    	});
 
     //js에서 사용하기 위해 객체 저장
     let user1 = {
@@ -194,7 +215,7 @@
           profilecolor: "<%= user2.getProfilecolor() %>"
       }
       document.querySelector("#user2").innerHTML = user2.nickname;
-      document.querySelector("#user2point").innerHTML = user2.point;
+      document.querySelector("#user2point").innerHTML = "오목조목킹 "+user2.point;
       document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
     }
     
@@ -222,10 +243,12 @@
           }
           // 가져온 정보로 본인의 클라이언트 적용
           document.querySelector("#user2").innerHTML = user2.nickname;
-          document.querySelector("#user2point").innerHTML = user2.point;
+          document.querySelector("#user2point").innerHTML = "오목조목킹 "+ user2.point;
           document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
           } else if (data1.type == "move"){ //넘어온 객체가 move인 경우. 서버에서 바둑판 정보를 보낸것. 방id, 현재 차례 유저 등
 
+          } else if (data1.type == "start"){
+            
           }
         }
       };

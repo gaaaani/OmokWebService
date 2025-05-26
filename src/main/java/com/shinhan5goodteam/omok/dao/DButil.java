@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 //오라클 db 연동
 public class DButil {
-    private static final String URL = "jdbc:oracle:thin:@192.168.0.208:1521:xe"; // orcl이면 xe 대신 orcl
+	private static final String URL = "jdbc:oracle:thin:@192.168.0.147:1521:xe"; // orcl이면 xe 대신 orcl
     private static final String USER = "OMOK";
     private static final String PASSWORD = "omok1234";
 

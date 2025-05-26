@@ -38,30 +38,30 @@ public class GamePlayWebSocket {
         clients.add(session);
         System.out.println("클라이언트 연결됨 (room: " + roomId + ", session: " + session.getId() + ")");
 
-        //2명 접속 확인 후 게임 시작 전달
-        if (clients.size() == 2) {
-            // user1, user2의 id는 세션에서 받아오거나, 임시로 session id 사용
-            String[] userIds = clients.stream().map(Session::getId).toArray(String[]::new);
-            BoardService board = gameService.cerateBoard(Integer.parseInt(roomId), userIds[0], userIds[1]);
+        // //2명 접속 확인 후 게임 시작 전달
+        // if (clients.size() == 2) {
+        //     // user1, user2의 id는 세션에서 받아오거나, 임시로 session id 사용
+        //     String[] userIds = clients.stream().map(Session::getId).toArray(String[]::new);
+        //     BoardService board = gameService.cerateBoard(Integer.parseInt(roomId), userIds[0], userIds[1]);
 
-            //게임 시작 최초 move 전달.
-            //여기서 가는 user1id 가 흑으로 프론트에서 표시
-            GameMessage gameMessage = new GameMessage(
-                "move",
-                Integer.parseInt(roomId),
-                board.getUser1Id()
-            );
+        //     //게임 시작 최초 move 전달.
+        //     //여기서 가는 user1id 가 흑으로 프론트에서 표시
+        //     GameMessage gameMessage = new GameMessage(
+        //         "move",
+        //         Integer.parseInt(roomId),
+        //         board.getUser1Id()
+        //     );
 
-            // JSON 변환
-            Gson gson = new Gson();
-            String jsonMessage = gson.toJson(gameMessage);
-            for (Session client : clients) {
-                if (client.isOpen()) {
-                    client.getBasicRemote().sendText(jsonMessage);
-                }
-            }
-            System.out.println("방 " + roomId + "에 보드 생성 및 게임 시작");
-        }
+        //     // JSON 변환
+        //     Gson gson = new Gson();
+        //     String jsonMessage = gson.toJson(gameMessage);
+        //     for (Session client : clients) {
+        //         if (client.isOpen()) {
+        //             client.getBasicRemote().sendText(jsonMessage);
+        //         }
+        //     }
+        //     System.out.println("방 " + roomId + "에 보드 생성 및 게임 시작");
+        // }
     }
 
     //클라이언트에서 send 발생 시 실행
@@ -84,6 +84,34 @@ public class GamePlayWebSocket {
                             System.out.println("sendUser");
                             client.getBasicRemote().sendText(message);
                         }
+                    }
+                    String receivedUserId = json.get("id").getAsString();
+                    sender.getUserProperties().put("userId", receivedUserId);
+
+                    boolean allReady = clients.size() == 2 &&
+                    clients.stream().allMatch(s -> s.getUserProperties().get("userId") != null);
+
+                    if (allReady) {
+                        String[] userIds = clients.stream()
+                            .map(s -> (String) s.getUserProperties().get("userId"))
+                            .toArray(String[]::new);
+
+                        BoardService board = gameService.cerateBoard(Integer.parseInt(roomId), userIds[0], userIds[1]);
+
+                        GameMessage gameMessage = new GameMessage(
+                            "start",
+                            Integer.parseInt(roomId),
+                            board.getUser1Id()
+                        );
+
+                        Gson gsonStart = new Gson();
+                        String jsonMessage = gsonStart.toJson(gameMessage);
+                        for (Session client : clients) {
+                            if (client.isOpen()) {
+                                client.getBasicRemote().sendText(jsonMessage);
+                            }
+                        }
+                        System.out.println("방 " + roomId + "에 보드 생성 및 게임 시작");
                     }
                     break;
                 case "move":

@@ -140,7 +140,6 @@ public class UserDAO {
 
 
     
-=======
     //findById 로 대체 가능. 
     public static User versusUser(String userid){
         String sql = "SELECT * FROM USER_TABLE WHERE user_id = ?";
