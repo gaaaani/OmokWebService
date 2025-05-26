@@ -30,6 +30,7 @@ header {
     justify-content: space-between;
     font-size: 20px;
     border-bottom: 1px solid #717171;
+    height:20px;
 }
 
 .home-icon img {
