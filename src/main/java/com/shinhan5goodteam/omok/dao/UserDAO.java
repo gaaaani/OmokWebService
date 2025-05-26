@@ -57,7 +57,7 @@ public class UserDAO {
     }
 
     // userId로 User 객체를 반환
-    public User findById(String userId) {
+    public static User findById(String userId) {
         User user = null;
         String sql = "SELECT USER_ID, NICKNAME, POINTS, PROFILE_IMAGE, PROFILE_COLOR FROM USER_TABLE WHERE USER_ID = ?";
         try (Connection conn = DButil.getConnection();
