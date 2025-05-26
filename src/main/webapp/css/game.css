@@ -64,7 +64,6 @@
   border: 1px solid #333 !important;
   box-sizing: border-box;
 }
-
 .horizon {
   position: absolute !important; /* 부모기준으로 이동, 절대적인 위치*/
   height: 2px !important;
@@ -88,6 +87,7 @@
   z-index: 10 !important;
   border-radius: 50% !important;
 }
+
 
 .cell:hover {
   background-color: rgba(0, 0, 0, 0.1) !important;

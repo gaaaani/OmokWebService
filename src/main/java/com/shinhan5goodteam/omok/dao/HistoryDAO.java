@@ -1,7 +1,6 @@
 package com.shinhan5goodteam.omok.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import com.shinhan5goodteam.omok.model.History;
 
 public class HistoryDAO {
 
+    //전적 가져오기
     public List<History> getUserHistories(String userId) {
         List<History> list = new ArrayList<>();
         String sql = "SELECT HISTORY_ID, END_TIME, BLACK_ID, WHITE_ID, WINNER_ID FROM HISTORY WHERE BLACK_ID = ? OR WHITE_ID = ?";
