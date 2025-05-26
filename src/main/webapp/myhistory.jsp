@@ -1,3 +1,4 @@
+
 <!-- filepath: c:\java\workspace\OmokWebService\src\main\webapp\myhistory.jsp -->
 <%@page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -83,8 +84,10 @@
             <!-- 프로필 및 점수 -->
             <div class="container">
                 <div class="profile-container">
+
                     <div class="profile" style="background-color: <%= profileColorHex %>;" >
                         <img src="<%= profileImagePath %>" alt="프로필 이미지" />
+
                     </div>
                     <div class="name-box" style="background-color: <%= profileColorHex %>;"><%= nickname %></div>
                 </div>

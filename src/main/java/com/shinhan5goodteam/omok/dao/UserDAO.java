@@ -20,9 +20,11 @@ public class UserDAO {
             if (rs.next()) {
                 return true;
             }
-        } catch (Exception e) {
 
-        }
+        } catch ( Exception e) {
+             e.printStackTrace(); // 최소한 콘솔에 오류 로그 출력
+
+        } 
 
         return false;
     }
@@ -120,6 +122,25 @@ public class UserDAO {
         return false;
     }
 
+
+    public boolean updateProfile(String userid, String profileImage, String profileColor) {
+    String sql = "UPDATE user_table SET profile_image = ?, profile_color = ? WHERE user_id = ?";
+    try (Connection conn = DButil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, profileImage);
+        pstmt.setString(2, profileColor);
+        pstmt.setString(3, userid);
+        return pstmt.executeUpdate() > 0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+
+    
+=======
     //findById 로 대체 가능. 
     public static User versusUser(String userid){
         String sql = "SELECT * FROM USER_TABLE WHERE user_id = ?";
@@ -166,7 +187,5 @@ public class UserDAO {
         }
         return rankingList;
 }
-
-
 
 }
