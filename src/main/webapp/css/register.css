@@ -1,3 +1,4 @@
+/* register.css */
 @font-face {
     font-family: 'nanumesquareneo';
     src: url('font/NanumSquareNeo-aLt.ttf');
@@ -11,7 +12,6 @@ body{
 #wrapper{
     width: 393px;
     height: 852px;
-    border: 1px solid black;
     position: relative;
 }
 #useable{
@@ -44,8 +44,8 @@ body{
 }
 #header{
     position: relative;;
-    width: 393px;
-    height: 81px;
+    width: 396px;
+    height: 86px;
     border-bottom: 1px solid black;
 }
 #gamename{
@@ -53,14 +53,18 @@ body{
     left: 24px;
     top: 28px;
     font-size:20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;  /* 추가 */
 }
+/*
 #homeicon{
     width: 22px;
     height: 24px;
     position: absolute;
     left: 340px;
     top: 30px;  
-}
+} */
 #content{
     width: 393px;
     height: 770px;
@@ -71,27 +75,41 @@ body{
 }
 #registertext{
     width: 393px;
-    height: 20%;
+    height: auto;
     position: relative;
+    margin-bottom:15px;
 }
 #registertext > img {
     position: absolute;
     width: 16px;
     height: 16px;
     left : 16px;
-    top : 25px;
+    top : 12px;
 }
 #registertext > p {
     position: absolute;
     left : 35px;
-    top: 22px;
+    top: 10px;
+    font-size:16px;
+    font-weight: bold;  /* 추가 */
     
 }
 #createid{
     width: 393px;
+    top: 40px;
     height: 20%;
     position: relative;
 }
+
+#inputid,
+#inputnickname,
+#inputpassword,
+#checkpassword1 {
+    padding-left: 15px;  /* 왼쪽 여백 추가 */
+    padding-right: 15px; /* 필요시 오른쪽도 */
+}
+
+
 #inputid{
     position: absolute;
     width: 278px;
@@ -115,6 +133,7 @@ body{
 #createnickname{
     width: 393px;
     height: 20%;
+    top:40px;
     position: relative;
 }
 #inputnickname{
@@ -140,6 +159,7 @@ body{
 #createpassword{
     width: 393px;
     height: 20%;
+    top:40px;
     position: relative;
 }
 #inputpassword{
@@ -155,6 +175,7 @@ body{
     width: 393px;
     height: 20%;
     position: relative;
+    top:40px;
 }
 #checkpassword1{
     position: absolute;
@@ -185,6 +206,7 @@ body{
     position: absolute;
     left : 35px;
     top: 22px;
+    font-weight: bold;  /* 추가 */
 }
 #characterlist{
     height: 45%;
