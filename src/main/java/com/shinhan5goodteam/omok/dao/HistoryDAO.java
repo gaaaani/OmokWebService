@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shinhan5goodteam.omok.model.History;
+import com.shinhan5goodteam.omok.model.Room;
 
 public class HistoryDAO {
 
@@ -37,5 +38,28 @@ public class HistoryDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    //게임 종료 시 전적 추가
+    public static boolean addHistory(Room room, String winnerId){
+        String sql = "insert into user_table (start_time,end_time,black_id,white_id,winner_id,room_id) values(?,?,?,?,?,?)";
+        try (Connection conn = DButil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, room.getCreatedAt());
+            pstmt.setString(2, room.getClosedAt());
+            pstmt.setString(3, room.getBlackId());
+            pstmt.setString(4, room.getWhiteId());
+            pstmt.setString(5, winnerId);
+            pstmt.setInt(6,room.getRoomId());
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 }
