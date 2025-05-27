@@ -102,8 +102,10 @@ public class GamePlayWebSocket {
                         GameMessage gameMessage = new GameMessage(
                             "start",
                             Integer.parseInt(roomId),
-                            board.getUser1Id()
+                            board.getCurrentTurn()
                         );
+
+                        RoomDAO.setBlackWhiteUsers(board.getUser1Id(), board.getUser2Id(), board.getRoomId());
 
                         Gson gsonStart = new Gson();
                         String jsonMessage = gsonStart.toJson(gameMessage);
@@ -123,50 +125,80 @@ public class GamePlayWebSocket {
 
                     BoardService board = gameService.getBoard(Integer.parseInt(roomId));
 
-                    
-                    if(board.placeStone(userId,x,y)){
-                        System.out.println("placeStone");
-                        GameMessage gameMessage = new GameMessage(
-                            "move",
-                            Integer.parseInt(roomId),
-                            board.getUser1Id(),
-                            x,
-                            y
-                        );
+                    if(board.getBoard()[x][y] == 0 ){
+                        if(board.placeStone(userId,x,y)){
+                            System.out.println("placeStone");
+                            GameMessage gameMessage = new GameMessage(
+                                "move",
+                                Integer.parseInt(roomId),
+                                board.getCurrentTurn(),
+                                x,
+                                y
+                            );
 
-                        board.print(); // 보드 확인용 콘솔 출력
+                            board.print(); // 보드 확인용 콘솔 출력
 
-                        // JSON 변환
-                        Gson gson1 = new Gson();
-                        String jsonMessage = gson1.toJson(gameMessage);
-                        for (Session client : clients) {
-                            if (client.isOpen()) {
-                                client.getBasicRemote().sendText(jsonMessage);
-                            }
-                        }
-                    }
-
-                    if(board.isOmok(userId, x, y)){
-                        System.out.println("gameOver");
-                        GameMessage gameMessage = new GameMessage(
-                            "over",
-                            Integer.parseInt(roomId),
-                            board.getUser1Id(),
-                            x,
-                            y
-                        );
-
-                        // JSON 변환
-                        Gson gson1 = new Gson();
-                        String jsonMessage = gson1.toJson(gameMessage);
-                        for (Session client : clients) {
-                            if (client.isOpen()) {
-                                client.getBasicRemote().sendText(jsonMessage);
+                            // JSON 변환
+                            Gson gson1 = new Gson();
+                            String jsonMessage = gson1.toJson(gameMessage);
+                            for (Session client : clients) {
+                                if (client.isOpen()) {
+                                    client.getBasicRemote().sendText(jsonMessage);
+                                }
                             }
                         }
 
-                    }
+                        if(board.isOmok(userId, x, y)){
+                            System.out.println("gameOver");
+                            GameMessage gameMessage = new GameMessage(
+                                "over",
+                                Integer.parseInt(roomId),
+                                board.getCurrentTurn(),
+                                x,
+                                y
+                            );
 
+                            RoomDAO.setGameOver(board.getRoomId());
+
+                            // JSON 변환
+                            Gson gson1 = new Gson();
+                            String jsonMessage = gson1.toJson(gameMessage);
+                            for (Session client : clients) {
+                                if (client.isOpen()) {
+                                    client.getBasicRemote().sendText(jsonMessage);
+                                }
+                            }
+
+                        }
+                    } else {
+                        if(board.placeStone(userId,x,y)){
+                            System.out.println("not placeStone");
+                            GameMessage gameMessage = new GameMessage(
+                                "move",
+                                Integer.parseInt(roomId),
+                                board.getCurrentTurn(),
+                                x,
+                                y
+                            );
+
+                            board.print(); // 보드 확인용 콘솔 출력
+
+                            // JSON 변환
+                            Gson gson1 = new Gson();
+                            String jsonMessage = gson1.toJson(gameMessage);
+                            for (Session client : clients) {
+                                if (client.isOpen()) {
+                                    client.getBasicRemote().sendText(jsonMessage);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case "exit":
+                    JsonObject exitMsg = new JsonObject();
+                    exitMsg.addProperty("type", "exit");
+                    exitMsg.addProperty("redirect", "roomList");
+                    sender.getBasicRemote().sendText(exitMsg.toString());
                     break;
                 default:
                     System.out.println("알 수 없는 type: " + type);
