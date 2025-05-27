@@ -1,5 +1,7 @@
 package com.shinhan5goodteam.omok.service;
 
+import com.shinhan5goodteam.omok.dao.RoomDAO;
+
 public class BoardService {
     private int roomId;
     private String user1Id; //흑
@@ -19,6 +21,7 @@ public class BoardService {
         }
         this.board = new int[15][15];
         this.currentTurn = user1Id;
+		// RoomDAO.setBlackWhiteUsers(this.user1Id, this.user2Id, roomId);
     }
 
     public boolean placeStone(String userId, int x, int y){
@@ -41,7 +44,7 @@ public class BoardService {
             System.out.println();
         }
         System.out.print("  ");
-        for (int col = 'A'; col <= 'S'; col++) {
+        for (int col = 'A'; col <= 'O'; col++) {
             System.out.print(" " + (char)col);
         }
         System.out.println();
@@ -126,8 +129,7 @@ public class BoardService {
     		while(true) {
     			int ny = y + dy[i];
     			int nx = x + dx[i];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || getBoard()[ny][nx] != stone
-						|| getBoard()[ny][nx] != 0) {
+				if (ny < 0 || nx < 0 || ny >= size || nx >= size || getBoard()[ny][nx] != stone) {
 					break;
 				} else {
 					cnt++;
@@ -140,8 +142,7 @@ public class BoardService {
     		while(true) {
     			int ny = y + dy[i+1];
     			int nx = x + dx[i+1];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || getBoard()[ny][nx] != stone
-						|| getBoard()[ny][nx] != 0) {
+				if (ny < 0 || nx < 0 || ny >= size || nx >= size || getBoard()[ny][nx] != stone) {
 					break;
 				} else {
 					cnt++;
