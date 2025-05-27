@@ -30,6 +30,8 @@ body {
 
 /* 헤더 */
 header {
+  width:396px;
+  height:86px;
   font-family: 'nanumesquareneo_b';
   padding: 30px;
   display: flex;
@@ -40,9 +42,12 @@ header {
 .title {
   font-size: 20px;
 }
-.home_icon img {
-  width: 22px;
-  cursor: pointer;
+
+
+#home{
+   text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 /* 회원정보 제목 강조 */
@@ -111,6 +116,8 @@ header {
   border: none;
   white-space: nowrap;
 }
+
+
 
 /* 전체 프로필 변경 박스 */
 #profile_box_wrapper {

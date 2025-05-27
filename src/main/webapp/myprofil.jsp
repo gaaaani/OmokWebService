@@ -89,12 +89,10 @@
 <body>
   <div id="wrapper">
     <header>
-      <div class="title">5조은목</div>
-      <div class="home_icon">
-        <a href="main.html">
-          <img src="img/tomainicon.png" alt="홈" />
-        </a>
-      </div>
+      <a href="<%= request.getContextPath() %>/roomList" id=home>
+         <div class="title">5조은목</div>
+      </a>
+      
     </header>
 
     <main>
