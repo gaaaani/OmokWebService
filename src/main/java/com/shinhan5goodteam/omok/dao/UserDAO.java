@@ -122,11 +122,11 @@ public class UserDAO {
         return false;
     }
 
-
+    // 프로필 업데이트
     public boolean updateProfile(String userid, String profileImage, String profileColor) {
     String sql = "UPDATE user_table SET profile_image = ?, profile_color = ? WHERE user_id = ?";
     try (Connection conn = DButil.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         pstmt.setString(1, profileImage);
         pstmt.setString(2, profileColor);
@@ -136,7 +136,7 @@ public class UserDAO {
         e.printStackTrace();
     }
     return false;
-}
+    }
 
 
     
@@ -164,6 +164,7 @@ public class UserDAO {
         }
         return null;
     }
+
     //랭킹 데이터
     public List<User> getRanking() {
         List<User> rankingList = new ArrayList<>();
@@ -185,6 +186,23 @@ public class UserDAO {
             e.printStackTrace();
         }
         return rankingList;
-}
+    }
 
+    // 점수 업데이트
+    public boolean updatePoint(String userid, int point) {
+        String sql = "UPDATE user_table SET points = ? WHERE user_id = ?";
+        try (Connection conn = DButil.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, point);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
