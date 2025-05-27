@@ -19,6 +19,7 @@ import com.google.gson.JsonParser;
 import com.shinhan5goodteam.omok.service.BoardService;
 import com.shinhan5goodteam.omok.service.GameMessage;
 import com.shinhan5goodteam.omok.service.GameService;
+import com.shinhan5goodteam.omok.dao.RoomDAO;
 
 import javax.websocket.Session;
 
@@ -122,9 +123,9 @@ public class GamePlayWebSocket {
 
                     BoardService board = gameService.getBoard(Integer.parseInt(roomId));
 
-
+                    
                     if(board.placeStone(userId,x,y)){
-                        System.out.println("placeStion");
+                        System.out.println("placeStone");
                         GameMessage gameMessage = new GameMessage(
                             "move",
                             Integer.parseInt(roomId),
@@ -154,8 +155,6 @@ public class GamePlayWebSocket {
                             x,
                             y
                         );
-
-                        board.print(); // 보드 확인용 콘솔 출력
 
                         // JSON 변환
                         Gson gson1 = new Gson();
@@ -187,6 +186,7 @@ public class GamePlayWebSocket {
     @OnClose
     public void onClose(Session session, @PathParam("roomId") String roomId) {
         Set<Session> clients = roomClients.get(roomId);
+        // String userId = (String) session.getUserProperties().get("userId");
         if (clients != null) {
             clients.remove(session);
             System.out.println("클라이언트 연결 종료됨: " + session.getId());
@@ -195,10 +195,10 @@ public class GamePlayWebSocket {
             }
         }
 
-        if ( clients.size() == 1){
-            System.out.println("gameOver");
+        // if (RoomDAO.checkRoomStatus(Integer.parseInt(roomId))){
+        //     System.out.println("gameOver");
             
-        }
+        // }
     }
     
 
