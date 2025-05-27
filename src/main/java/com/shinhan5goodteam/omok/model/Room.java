@@ -10,6 +10,10 @@ public class Room {
 	private String whiteId;
 	private String closedAt;
 	private String status;
+	private String profileColor;
+	private String profileImage;
+	private String nickName;
+	private int points;
 
 	public int getRoomId() {
 		return roomId;
@@ -83,4 +87,29 @@ public class Room {
 		this.status = status;
 	}
 
+	public String getProfileColor() {
+		return profileColor; 
+	}
+	public void setProfileColor(String profileColor) {
+		this.profileColor = profileColor;
+	}
+	public String getProfileImage() {
+		return profileImage; 
+	}
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage; 
+	}
+	public String getNickName(){
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public int getPoints() {
+		return points;
+	}
+	public void setPoints(int points) {
+		this.points = points;
+	}
 }
+
