@@ -2,6 +2,7 @@
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
 <%@ page import="com.shinhan5goodteam.omok.model.Room" %>
 <%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
+<%@ page import="com.shinhan5goodteam.omok.dao.RoomDAO" %>
 <%
   
   //유저 객체 생성된
@@ -11,11 +12,8 @@
 
   //방 객체 생성. 원래는 생성된 Room 객체를 가져옴.
   //방 만들기, 방 입장 시 Room 데이터를 어떻게 가져올지 정해야함.
-  Room room = new Room();
-  room.setRoomId(1);
-  room.setUserId("aaa");
-  room.setRoomName("testroom");
-  room.setStatus("ready");
+  int roomId = Integer.parseInt(request.getParameter("roomId"));
+  Room room = RoomDAO.getRoomById(roomId);
   
   //방에 입장한 유저의 경우 본인의 아이디와 룸생성자의 id가 다르기때문에
   //방 생성자의 객체를 가져와 본인 클라이언트에 적용하기 위함.
@@ -89,7 +87,7 @@
       <!-- 1) 나가기 확인 팝업 -->
       <div id="exit-popup" class="popup-box">
         <p>지금 나가면 항복처리 됩니다.</p>
-        <button class="popup-button" onclick="closeAllPopups()">취소</button>
+        <button class="cancle-button" onclick="closeAllPopups()">취소</button>
         <button class="popup-button" onclick="confirmExit()">나가기</button>
       </div>
 
@@ -100,21 +98,21 @@
           <div class="avatar-bg" style="background-color: #E9E9E9;">
             <img src="" alt="win" class="popup-avatar" id="winner-img">
           </div>
-          <p id="winner-text"><%= user1.getNickname() %> 🏆 +100점!!</p>
+          <p id="winner-text"></p>
         </div>
         <div class="divider"></div>
-        <button class="popup-button" onclick="closeAllPopups()">나가기</button>
+        <button class="popup-button">나가기</button>
       </div>
 
       <!-- 3) 패배 팝업 -->
       <div id="loser-popup" class="popup-box">
         <h2>LOSE !!</h2>
         <div class="avatar-bg" style="background-color: #F8BBD0;">
-          <img src="" alt="lose" class="popup-avatar" id="lose-img">
+          <img src="" alt="lose" class="popup-avatar" id="loser-img">
         </div>
-        <p id="loser-text"><%= user1.getNickname() %> 😢 −100점!!</p>
+        <p id="loser-text"></p>
         <div class="divider"></div>
-        <button class="popup-button" onclick="closeAllPopups()">나가기</button>
+        <button class="popup-button">나가기</button>
       </div>
 
     </div>
@@ -122,6 +120,28 @@
   </div>
 
   <script>
+  let posx = -1;
+  let posy = -1;
+
+  function draw() {
+    console.log("function out");
+    if (this.style.backgroundColor != "white" && this.style.backgroundColor != "black"){
+      console.log("check");
+      if ( posx >=0 && posy >= 0){
+        document.getElementById(posx+"-"+posy).style.backgroundColor = "initial";
+      }
+      if ( color == "black" ){
+        this.style.backgroundColor = "black";
+      } else {
+        this.style.backgroundColor = "white";
+      }
+      posx = this.dataset.x;
+      posy = this.dataset.y;
+      sendData.x = posx;
+      sendData.y = posy;
+      console.log("(x: " + this.dataset.x + ", y: " + this.dataset.y + ")");
+    }
+  };  
 
   function drawOmok() {
     	  var board = document.getElementById("omok-board");
@@ -169,14 +189,13 @@
     	  for (var y = 0; y < size; y++) {
     	    for (var x = 0; x < size; x++) {
     	      var cell = document.createElement("div");
+            cell.id =  x + "-" + y;
     	      cell.className = "cell";
     	      cell.style.left = Math.round(offset + x * gap) + "px";
     	      cell.style.top = Math.round(offset + y * gap) + "px";
     	      cell.dataset.x = x;
     	      cell.dataset.y = y;
-    	      cell.addEventListener("click", function () {
-    	        console.log("(x: " + this.dataset.x + ", y: " + this.dataset.y + ")");
-    	      });
+            cell.style.borderRadius = "50%";
     	      board.appendChild(cell);
     	    }
     	  }
@@ -184,7 +203,34 @@
     
     document.addEventListener("DOMContentLoaded", function () {       
     	  drawOmok();   
-    	});
+    });
+
+      // 승리 팝업 열기
+    // player: '부엉이' or '곰돌이', delta: 점수 변화값(숫자)
+    function showWinnerPopup() {
+      document.getElementById('popup-overlay').style.display = 'block';
+      document.querySelector("#winner-img").src = "img/"+user1.profileimg+".png";
+      document.getElementById('winner-text').innerHTML = user1.id+" +100점";
+      document.getElementById('winner-popup').style.display = 'block';
+    }
+
+    // 패배 팝업 열기
+    function showLoserPopup() {
+      document.getElementById('popup-overlay').style.display = 'block';
+      document.querySelector("#loser-img").src = "img/"+user1.profileimg+".png";
+      document.getElementById('loser-text').innerHTML = user1.id+" -100점";
+      document.getElementById('loser-popup').style.display = 'block';
+    }
+
+    //팝업 나가기 버튼
+    document.querySelector(".popup-button").addEventListener("click", function () {
+      const exit_data = {
+        type : "exit",
+        roomId : room.roomId,
+        userId : user1.id
+      }
+      socket.send(JSON.stringify(exit_data));
+    })
 
     //js에서 사용하기 위해 객체 저장
     let user1 = {
@@ -219,6 +265,16 @@
       document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
     }
     
+    let color;
+
+    let sendData = {
+          type : "move",
+          roomId : room.roomId,
+          userId : user1.id,
+          x: posx,
+          y: posy
+    };
+
     //소켓 설정
     //socket.send() 실행 당 서버에서 한번의 Onmessage 함수 작동.
     let socket;
@@ -246,19 +302,57 @@
           document.querySelector("#user2point").innerHTML = "오목조목킹 "+ user2.point;
           document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
           } else if (data1.type == "move"){ //넘어온 객체가 move인 경우. 서버에서 바둑판 정보를 보낸것. 방id, 현재 차례 유저 등
-
+            if (data1.userId == user1.id){
+              document.getElementById(data1.x+"-"+data1.y).style.backgroundColor = color == "black" ? "white" : "black";
+              document.querySelector("#move-button").disabled = false;
+              document.querySelectorAll(".cell").forEach(cell => {
+                cell.addEventListener("click", draw);
+              });
+            } else {
+              document.querySelector("#move-button").disabled = true;
+            }
           } else if (data1.type == "start"){
-            
+            if (data1.userId == user1.id){
+              document.querySelector("#move-button").disabled = false;
+              document.querySelectorAll(".cell").forEach(cell => {
+                cell.addEventListener("click", draw);
+              });
+              color = "black";
+            } else {
+              color = "white";
+            }
+          } else if (data1.type == "over"){
+            if(user1.id == data1.userId){
+              showLoserPopup();
+            } else {
+              showWinnerPopup();
+            }
+          } else if (data1.type == "exit"){
+            const data1 = JSON.parse(e.data);
+            if (data1.type === "exit" && data1.redirect === "roomList") {
+              window.location.href = "roomList";
+            }
           }
         }
       };
 
       socket.onclose = function() { //소켓 연결 종료 시 실행
-        socket.close();
-        console.log('서버랑 연결이 끊어졌습니다');
+      socket.close();
+      console.log('서버랑 연결이 끊어졌습니다');
       };
     };
     window.onload = connect; // 창 로드가 완료된 후 소켓연결
+
+    document.querySelector("#move-button").addEventListener("click", function(){
+      if (posx >= 0 && posy >= 0) {
+        socket.send(JSON.stringify(sendData));
+        document.querySelectorAll(".cell").forEach(cell => {
+          cell.removeEventListener("click", draw);
+        });
+        posx = -1;
+        posy = -1;
+      }
+    })
     
 
     let whiteuser;
@@ -371,20 +465,7 @@
     //   alert('항복 처리되었습니다.');
     // }
 
-    // // 승리 팝업 열기
-    // // player: '부엉이' or '곰돌이', delta: 점수 변화값(숫자)
-    // function showWinnerPopup(player, delta) {
-    //   document.getElementById('popup-overlay').style.display = 'block';
-    //   document.getElementById('winner-text').textContent = `${player} 🏆 +${delta}점!!`;
-    //   document.getElementById('winner-popup').style.display = 'block';
-    // }
 
-    // // 패배 팝업 열기
-    // function showLoserPopup(player, delta) {
-    //   document.getElementById('popup-overlay').style.display = 'block';
-    //   document.getElementById('loser-text').textContent = `${player} 😢 −${delta}점!!`;
-    //   document.getElementById('loser-popup').style.display = 'block';
-    // }
 
     // // 게임 종료 시 호출하는 함수
     // // winner: 'left' or 'right'

@@ -128,9 +128,6 @@ public class RoomDAO {
         try (Connection conn = DButil.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, roomId);
-            ResultSet rs = pstmt.executeQuery();
-            
             pstmt.setString(1, user1Id);
             pstmt.setString(2, user2Id);
             pstmt.setString(3, "start");
@@ -138,10 +135,8 @@ public class RoomDAO {
 
             int rows = pstmt.executeUpdate();
             if (rows > 0) {
-                rs.close();
                 return true;
             }
-            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,24 +146,18 @@ public class RoomDAO {
 
     // 게임 종료 시 게임방 상태 종료
     public static boolean setGameOver(int roomId){
-        String sql = "update room set closed_at = ?, status = ? where room_id = ?";
+        String sql = "update room set closed_at = sysdate, status = ? where room_id = ?";
 
         try (Connection conn = DButil.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, roomId);
-            ResultSet rs = pstmt.executeQuery();
-            
-            pstmt.setString(1, "sysdate");
-            pstmt.setString(2, "end");
-            pstmt.setInt(3, roomId);
+            pstmt.setString(1, "end");
+            pstmt.setInt(2, roomId);
 
             int rows = pstmt.executeUpdate();
             if (rows > 0) {
-                rs.close();
                 return true;
             }
-            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
