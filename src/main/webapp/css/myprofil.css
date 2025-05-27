@@ -8,6 +8,13 @@
   src: url('font/NANUMSQUARENEO-BRG.ttf');
 }
 
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+
 /* 전체 구조 */
 body {
   font-family: 'nanumesquareneo';
@@ -298,6 +305,5 @@ header {
 #save_button:hover {
   background-color: #90bce4;
 }
-
 
 
