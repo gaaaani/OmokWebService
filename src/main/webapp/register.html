@@ -93,17 +93,19 @@
                 data: { command:'checkid',userid: userid},
                 success: function(result){
                     if (result ==='true'){
-                        $('#unusealbe').show();
-                        setTimeout(function() {
-                            $('#unusealbe').hide();
-                        },2000);
+                        // $('#unusealbe').show();
+                        // setTimeout(function() {
+                        //     $('#unusealbe').hide();
+                        // },2000);
+                        alert("사용 불가능");
                     } else {
-                        $('#useable').show();
-                        setTimeout(function() {
-                            $('#useable').hide();
-                        },2000);
+                        // $('#useable').show();
+                        // setTimeout(function() {
+                        //     $('#useable').hide();
+                        // },2000);
                         $("#inputid").prop('disabled',true);
                         isCheckingId = true;
+                        alert("사용 가능");
                     }
                 }
             })
@@ -120,17 +122,19 @@
                 data: { command:'checknickname',usernickname: usernickname},
                 success: function(result){
                     if (result ==='true'){
-                        $('#unusealbe').show();
-                        setTimeout(function() {
-                            $('#unusealbe').hide();
-                        },2000);
+                        // $('#unusealbe').show();
+                        // setTimeout(function() {
+                        //     $('#unusealbe').hide();
+                        // },2000);
+                        alert("사용 불가능");
                     } else {
-                        $('#useable').show();
-                        setTimeout(function() {
-                            $('#useable').hide();
-                        },2000);
+                        // $('#useable').show();
+                        // setTimeout(function() {
+                        //     $('#useable').hide();
+                        // },2000);
                         $("#inputnickname").prop('disabled',true);
                         isCheckingNickName = true;
+                        alert("사용 가능");
                     }
                 }
             })

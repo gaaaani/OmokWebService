@@ -172,4 +172,30 @@ public class RoomDAO {
         return false;
     }
 
+    // 방 상태 가져오기
+    public static boolean checkRoomStatus(int roomId){
+        Room room = null;
+        String sql = "SELECT status FROM Room WHERE room_id = ?";
+
+        try (Connection conn = DButil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                room = new Room();
+                room.setStatus(rs.getString("status"));
+            }
+            
+            if(room.getStatus().equals("start")){
+                rs.close();
+                return true;
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
