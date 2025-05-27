@@ -66,7 +66,9 @@
 <body>
     <div id="wrapper">
         <header>
+        <a href="<%= request.getContextPath() %>/roomList" id=home>
             <div class="title">5조은목</div>
+        </a>
         </header>
         <main>
             <!-- 메인 타이틀, 랭킹 버튼튼-->

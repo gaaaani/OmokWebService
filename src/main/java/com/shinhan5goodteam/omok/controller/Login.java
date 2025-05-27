@@ -48,8 +48,9 @@ public class Login extends HttpServlet {
 		if (user != null) {
 			// 로그인 성공시 세션에 user 객체 저장
 			request.getSession().setAttribute("user", user);
-			// response.sendRedirect("roomList"); //메인 페이지로 이동
-			response.sendRedirect("game.jsp");
+			response.sendRedirect("roomList");
+
+
 
 		} else {
 			// 로그인 실패 시 에러메세지를 세션에 저장 후 로그인 페이지로 이동

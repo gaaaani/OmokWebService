@@ -22,7 +22,11 @@ body {
     width: 398px;
     height: 852px;
 }
-
+#home{
+	text-decoration: none;
+ 	color: inherit;
+ 	display: block;
+}
 header {
     font-family: 'nanumesquareneo_b';
     padding: 30px;
