@@ -146,11 +146,12 @@
       </div>
     </main>
 
-    <script>
-  const userNickname = "<%= nickname %>";
-  </script>
-  <script src="myprofilscript.js"></script>
+
 
   </div>
+  <script>
+    const userNickname = "<%= nickname %>";
+  </script>
+  <script src="myprofilscript.js"></script>
 </body>
 </html>
