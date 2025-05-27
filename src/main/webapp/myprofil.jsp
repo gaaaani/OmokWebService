@@ -9,8 +9,8 @@
     }
 
     String userid = user.getUserid();
-    String password = user.getUserpw();
-    String maskedPw = "*".repeat(password.length());
+    String nickname=user.getNickname();
+    if(nickname==null|| nickname.isBlank()) nickname = "사용자";
 
     String profileImage = user.getProfileimage();
     if (profileImage == null || profileImage.isBlank()) profileImage = "moli";
@@ -105,9 +105,7 @@
 
       <div id="user_info_form">
         <input type="text" id="user_id_input" value="<%= userid %>" disabled />
-        <div id="pw_change_group">
-          <input type="password" id="user_pw_input" value="<%= maskedPw %>" disabled />
-        </div>
+        <input type="text" id="user_nickname_input" value="<%= nickname %>" disabled />
       </div>
 
       <div id="profile_section_title">
@@ -122,7 +120,7 @@
           <div class="profile_circle" style="background-color:<%= bgColor %>">
             <img src="img/<%= profileImage %>.png" alt="선택된 캐릭터" id="selected_character_img" />
           </div>
-          <div id="selected_character_name" style="background-color:<%= bgColor %>"><%= profileName %></div>
+          <div id="selected_character_name" style="background-color:<%= bgColor %>"><%= nickname %></div>
         </div>
 
         <div id="character_selection_box">
@@ -150,7 +148,11 @@
       </div>
     </main>
 
-    <script src="myprofilscript.js"></script>
+    <script>
+  const userNickname = "<%= nickname %>";
+  </script>
+  <script src="myprofilscript.js"></script>
+
   </div>
 </body>
 </html>
