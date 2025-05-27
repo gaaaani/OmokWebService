@@ -1,4 +1,3 @@
-
 //myprofilscript.js
 document.addEventListener('DOMContentLoaded', () => { 
   let selectedCharacter = null;
@@ -15,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 현재 선택 항목에 selected 추가
     char.classList.add("selected");
     char.style.border = '2px solid #4a90e2';
+
+    const previewName = document.getElementById("selected_character_name");
+    previewName.textContent = userNickname;
   });
 });
 
@@ -28,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     color.classList.add("selected");
     color.style.outline = '2px solid #4a90e2';
+
+    previewName.textContent = userNickname; // 항상 닉네임으로 유지
   });
 });
 
@@ -35,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById("save_button").addEventListener("click", () => {
   const selectedCharacter = document.querySelector(".character_option.selected");
   const selectedColor = document.querySelector(".color_option.selected");
+
 
   if (!selectedCharacter || !selectedColor) {
     alert("캐릭터와 배경색을 모두 선택해주세요.");
@@ -65,9 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         circleBox.style.backgroundColor = bgColor;  
         previewName.style.backgroundColor = bgColor;
 
-        // 이름 변경
-        const name = selectedCharacter.getAttribute("data-name");
-        previewName.textContent = name;
+        previewName.textContent = userNickname;
 
         alert("프로필이 저장되었습니다!");
       } else {

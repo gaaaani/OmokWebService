@@ -121,4 +121,59 @@ public class RoomDAO {
         return room;
     }
 
+    // db 에 흑백 유정 지정 + 게임방 상태 업데이트
+    public static boolean setBlackWhiteUsers(String user1Id, String user2Id, int roomId){
+        String sql = "update room set black_id = ? , white_id = ?, status = ? where room_id = ?";
+
+        try (Connection conn = DButil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            pstmt.setString(1, user1Id);
+            pstmt.setString(2, user2Id);
+            pstmt.setString(3, "start");
+            pstmt.setInt(4, roomId);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                rs.close();
+                return true;
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    // 게임 종료 시 게임방 상태 종료
+    public static boolean setGameOver(int roomId){
+        String sql = "update room set closed_at = ?, status = ? where room_id = ?";
+
+        try (Connection conn = DButil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, roomId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            pstmt.setString(1, "sysdate");
+            pstmt.setString(2, "end");
+            pstmt.setInt(3, roomId);
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                rs.close();
+                return true;
+            }
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

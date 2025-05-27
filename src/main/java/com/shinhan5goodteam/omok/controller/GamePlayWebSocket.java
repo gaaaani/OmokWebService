@@ -147,6 +147,25 @@ public class GamePlayWebSocket {
 
                     if(board.isOmok(userId, x, y)){
                         System.out.println("gameOver");
+                        GameMessage gameMessage = new GameMessage(
+                            "over",
+                            Integer.parseInt(roomId),
+                            board.getUser1Id(),
+                            x,
+                            y
+                        );
+
+                        board.print(); // 보드 확인용 콘솔 출력
+
+                        // JSON 변환
+                        Gson gson1 = new Gson();
+                        String jsonMessage = gson1.toJson(gameMessage);
+                        for (Session client : clients) {
+                            if (client.isOpen()) {
+                                client.getBasicRemote().sendText(jsonMessage);
+                            }
+                        }
+
                     }
 
                     break;
@@ -174,6 +193,11 @@ public class GamePlayWebSocket {
             if (clients.isEmpty()) {
                 roomClients.remove(roomId);
             }
+        }
+
+        if ( clients.size() == 1){
+            System.out.println("gameOver");
+            
         }
     }
     
