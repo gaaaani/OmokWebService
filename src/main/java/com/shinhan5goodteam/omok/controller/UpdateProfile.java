@@ -62,33 +62,33 @@ public class UpdateProfile extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("utf-8");
-    response.setContentType("application/json;charset=utf-8");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("application/json;charset=utf-8");
 
-    String character = request.getParameter("character");
-    String backgroundColor = request.getParameter("backgroundColor");
+        String character = request.getParameter("character");
+        String backgroundColor = request.getParameter("backgroundColor");
 
-    User user = (User) request.getSession().getAttribute("user");
-    if (user == null) {
-        response.setStatus(401);
-        response.getWriter().write("{\"result\":\"fail\", \"message\":\"로그인 필요\"}");
-        return;
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.setStatus(401);
+            response.getWriter().write("{\"result\":\"fail\", \"message\":\"로그인 필요\"}");
+            return;
+        }
+
+        boolean success = new UserDAO().updateProfile(user.getUserid(), character, backgroundColor);
+
+        if (success) {
+            user.setProfileimage(character);
+            user.setProfilecolor(backgroundColor);
+            request.getSession().setAttribute("user", user);
+
+            response.getWriter().write("{\"result\":\"success\"}");
+        } else {
+            response.setStatus(500);
+            response.getWriter().write("{\"result\":\"fail\", \"message\":\"DB 업데이트 실패\"}");
+        }
     }
-
-    boolean success = new UserDAO().updateProfile(user.getUserid(), character, backgroundColor);
-
-    if (success) {
-        user.setProfileimage(character);
-        user.setProfilecolor(backgroundColor);
-        request.getSession().setAttribute("user", user);
-
-        response.getWriter().write("{\"result\":\"success\"}");
-    } else {
-        response.setStatus(500);
-        response.getWriter().write("{\"result\":\"fail\", \"message\":\"DB 업데이트 실패\"}");
-    }
-}
 
 
 }

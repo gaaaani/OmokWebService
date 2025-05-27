@@ -10,7 +10,7 @@ import com.shinhan5goodteam.omok.model.Room;
 import com.shinhan5goodteam.omok.model.User;
 
 @WebServlet("/createRoom")
-public class RoomCreateServlet extends HttpServlet {
+public class RoomCreate extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
