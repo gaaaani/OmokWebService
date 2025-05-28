@@ -8,7 +8,7 @@
    String loginProfileImagePath = "img/" + loginUser.getProfileimage() + ".png";
    String loginProfileColor = loginUser.getProfilecolor();
 %>
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
