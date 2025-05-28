@@ -10,6 +10,7 @@ public class BoardService {
     private int size = 15; //15 15
     private String currentTurn; //현재 차례 아이디
 
+	// 방 생성
     public BoardService(int roomId, String user1Id, String user2Id){
         this.roomId = roomId;
         if (Math.random() > 0.5 ){
@@ -24,6 +25,7 @@ public class BoardService {
 		// RoomDAO.setBlackWhiteUsers(this.user1Id, this.user2Id, roomId);
     }
 
+	//보드에 돌 적용
     public boolean placeStone(String userId, int x, int y){
         if ( board[x][y] == 0 && currentTurn.equals(userId) ){
             board[x][y] = userId.equals(user1Id) ? 1 : 2; 
@@ -58,6 +60,7 @@ public class BoardService {
         return currentTurn;
     }
 
+	//삼삼 판단
     public boolean isThreeThree(String userId, int row, int col) {
 		int[] dy = { -1, 1, 0, 0, -1, 1, -1, 1 };
 		int[] dx = { 0, 0, -1, 1, -1, 1, 1, -1 }; // dfs
@@ -113,6 +116,7 @@ public class BoardService {
 
 	}
 
+	//오목 판단
     public boolean isOmok(String userId, int row, int col) {
 		int[] dy = { -1, 1, 0, 0, -1, 1, -1, 1 };
 		int[] dx = { 0, 0, -1, 1, -1, 1, 1, -1 };

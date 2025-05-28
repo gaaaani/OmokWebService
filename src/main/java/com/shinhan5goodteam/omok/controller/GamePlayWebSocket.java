@@ -80,7 +80,7 @@ public class GamePlayWebSocket {
             String type = json.get("type").getAsString();
 
             switch (type) {
-                case "user":
+                case "user": // 유저가 입장시에
                     // 유저 정보 전달
                     for (Session client : clients) {
                         if (client.isOpen() && !client.equals(sender)) {
@@ -119,7 +119,7 @@ public class GamePlayWebSocket {
                         System.out.println("방 " + roomId + "에 보드 생성 및 게임 시작");
                     }
                     break;
-                case "move":
+                case "move":  //클라이언트에서 바둑알 둔 정보를 받았을 때
                     // 바둑판 적용
                     int x = json.get("x").getAsInt();
                     int y = json.get("y").getAsInt();
@@ -205,7 +205,7 @@ public class GamePlayWebSocket {
                         }
                     }
                     break;
-                case "exit":
+                case "exit": // 클라이언트에서 결과창에서 나가기를 요청했을 때
                     JsonObject exitMsg = new JsonObject();
                     exitMsg.addProperty("type", "exit");
                     exitMsg.addProperty("redirect", "roomList");
@@ -238,6 +238,7 @@ public class GamePlayWebSocket {
             }
         }
 
+        //클라이언트가 나갔는데 빈 방이 되면 방 상태 변경
         if (clients.size() == 0){
             System.out.println("gameOver");
             RoomDAO.setGameOver(Integer.parseInt(roomId));
