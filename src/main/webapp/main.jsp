@@ -115,12 +115,10 @@
 				<form action="createRoom" method="post">
 					<div id="modal-content">
 						<div class="modal-common">
-							<label> > 방 이름 </label> <input type="text" name="roomName"
-								class="modal-input" placeholder="들어오세요~~!!" required>
+							<label> > 방 이름 </label> <input type="text" name="roomName" class="modal-input">
 						</div>
 						<div class="modal-common">
-							<label> > 방 소개 </label> <input type="text" name="roomExplain"
-								class="modal-input" placeholder="나랑 오목을 겨루자!@!!">
+							<label> > 방 소개 </label> <input type="text" name="roomExplain"class="modal-input">
 						</div>
 
 						<!-- ✅ 서브밋 버튼으로 변경 -->
