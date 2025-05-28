@@ -55,7 +55,7 @@
             </div>
             <div class="name-stone">
               <span class="player-name"><%= user1.getNickname() %></span>
-              <span class="stone">⚫</span>
+              <span class="user1stone"></span>
             </div>
             <div class="score">오목조목킹 <%= user1.getPoints() %></div>
 
@@ -72,7 +72,7 @@
             </div>
             <div class="name-stone">
               <span id="user2" class="player-name"><%= user2.getNickname() %></span>
-              <span class="stone">⚪</span>
+              <span class="user2stone"></span>
             </div>
             <div id="user2point" class="score">오목조목킹 <%= user2.getPoints() %></div>
 
@@ -80,15 +80,15 @@
         </div>
         <button id="move-button" disabled>착수</button>
       </div>
-      <button id="exit-button">나가기</button>
+      <button id="surrender-button">항복</button>
     </div>
 
     <div id="popup-overlay">
       <!-- 1) 나가기 확인 팝업 -->
-      <div id="exit-popup" class="popup-box">
-        <p>지금 나가면 항복처리 됩니다.</p>
+      <div id="surrender-popup" class="popup-box">
+        <p>항복하시겠습니까?.</p>
         <button class="cancle-button" onclick="closeAllPopups()">취소</button>
-        <button class="popup-button" onclick="confirmExit()">나가기</button>
+        <button class="surrender" onclick="confirmExit()">항복</button>
       </div>
 
       <!-- 2) 승리 팝업 -->
@@ -120,9 +120,59 @@
   </div>
 
   <script>
+
+  //js에서 사용하기 위해 객체 저장
+  //본인정보
+  let user1 = {
+    type: "user",
+    id : "<%= user1.getUserid() %>",
+    point: "<%= user1.getPoints() %>",
+    nickname: "<%= user1.getNickname() %>",
+    profileimg: "<%= user1.getProfileimage() %>",
+    profilecolor: "<%= user1.getProfilecolor() %>"
+  }
+  document.querySelector("#leftUser").src = "img/"+user1.profileimg+".png";
+  document.querySelector(".popup-avatar").src = "img/"+user1.profileimg+".png";
+  //방정보
+  let room = {
+    roomId: "<%= room.getRoomId() %>",
+    createuserId: "<%= room.getUserId() %>",
+    status: "<%= room.getStatus() %>"
+  }
+  //상대정보
+  let user2;
+  //본인이 입장한 유저인 경우 상대가 정해져잇으므로 바로 적용
+  if ( "<%= user2 %>" != null){
+      user2 = {
+          type: "user",
+          id : "<%= user2.getUserid() %>",
+          point: "<%= user2.getPoints() %>",
+          nickname: "<%= user2.getNickname() %>",
+          profileimg: "<%= user2.getProfileimage() %>",
+          profilecolor: "<%= user2.getProfilecolor() %>"
+      }
+      document.querySelector("#user2").innerHTML = user2.nickname;
+      document.querySelector("#user2point").innerHTML = "오목조목킹 "+user2.point;
+      document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
+    }
+
+  //좌표 값
   let posx = -1;
   let posy = -1;
 
+  //흑백 저장
+  let color;
+
+  //서버로 보낼 move 데이터 객체
+  let sendData = {
+        type : "move",
+        roomId : room.roomId,
+        userId : user1.id,
+        x: posx,
+        y: posy
+  };
+
+  //바둑알 두기 함수
   function draw() {
     console.log("function out");
     if (this.style.backgroundColor != "white" && this.style.backgroundColor != "black"){
@@ -143,6 +193,7 @@
     }
   };  
 
+  //바둑판 그리기 함수
   function drawOmok() {
     	  var board = document.getElementById("omok-board");
     	  var size = 15;
@@ -200,13 +251,12 @@
     	    }
     	  }
     	}
-    
+    //바둑판 그리기 함수 호출
     document.addEventListener("DOMContentLoaded", function () {       
     	  drawOmok();   
     });
 
-      // 승리 팝업 열기
-    // player: '부엉이' or '곰돌이', delta: 점수 변화값(숫자)
+    // 승리 팝업 열기
     function showWinnerPopup() {
       document.getElementById('popup-overlay').style.display = 'block';
       document.querySelector("#winner-img").src = "img/"+user1.profileimg+".png";
@@ -222,59 +272,18 @@
       document.getElementById('loser-popup').style.display = 'block';
     }
 
-    //팝업 나가기 버튼
-    document.querySelector(".popup-button").addEventListener("click", function () {
+    //결과창 나가기 버튼. 서버에 exit 메세지 전달
+    document.querySelectorAll(".popup-button").forEach(e => {
+      e.addEventListener("click", function () {
       const exit_data = {
         type : "exit",
         roomId : room.roomId,
         userId : user1.id
       }
       socket.send(JSON.stringify(exit_data));
+      })
     })
-
-    //js에서 사용하기 위해 객체 저장
-    let user1 = {
-      type: "user",
-      id : "<%= user1.getUserid() %>",
-      point: "<%= user1.getPoints() %>",
-      nickname: "<%= user1.getNickname() %>",
-      profileimg: "<%= user1.getProfileimage() %>",
-      profilecolor: "<%= user1.getProfilecolor() %>"
-    }
-    document.querySelector("#leftUser").src = "img/"+user1.profileimg+".png";
-    document.querySelector(".popup-avatar").src = "img/"+user1.profileimg+".png";
-    
-    let room = {
-      roomId: "<%= room.getRoomId() %>",
-      createuserId: "<%= room.getUserId() %>",
-      status: "<%= room.getStatus() %>"
-    }
-    let user2;
-
-    if ( "<%= user2 %>" != null){
-      user2 = {
-          type: "user",
-          id : "<%= user2.getUserid() %>",
-          point: "<%= user2.getPoints() %>",
-          nickname: "<%= user2.getNickname() %>",
-          profileimg: "<%= user2.getProfileimage() %>",
-          profilecolor: "<%= user2.getProfilecolor() %>"
-      }
-      document.querySelector("#user2").innerHTML = user2.nickname;
-      document.querySelector("#user2point").innerHTML = "오목조목킹 "+user2.point;
-      document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
-    }
-    
-    let color;
-
-    let sendData = {
-          type : "move",
-          roomId : room.roomId,
-          userId : user1.id,
-          x: posx,
-          y: posy
-    };
-
+  
     //소켓 설정
     //socket.send() 실행 당 서버에서 한번의 Onmessage 함수 작동.
     let socket;
@@ -311,23 +320,27 @@
             } else {
               document.querySelector("#move-button").disabled = true;
             }
-          } else if (data1.type == "start"){
+          } else if (data1.type == "start"){ // 게임 시작 시 최초 1회 받음. 흑백 선정 데이터
             if (data1.userId == user1.id){
               document.querySelector("#move-button").disabled = false;
               document.querySelectorAll(".cell").forEach(cell => {
                 cell.addEventListener("click", draw);
               });
               color = "black";
+              document.querySelector(".user1stone").innerHTML = "⚫";
+              document.querySelector(".user2stone").innerHTML = "⚪";
             } else {
+              document.querySelector(".user2stone").innerHTML = "⚫";
+              document.querySelector(".user1stone").innerHTML = "⚪";
               color = "white";
             }
-          } else if (data1.type == "over"){
+          } else if (data1.type == "over"){ //게임 종료 데이터 받음.
             if(user1.id == data1.userId){
               showLoserPopup();
             } else {
               showWinnerPopup();
             }
-          } else if (data1.type == "exit"){
+          } else if (data1.type == "exit"){ // 메인으로 나가라는 데이터 받음
             const data1 = JSON.parse(e.data);
             if (data1.redirect == "roomList") {
               window.location.href = "roomList";
@@ -343,6 +356,7 @@
     };
     window.onload = connect; // 창 로드가 완료된 후 소켓연결
 
+    //착수 버튼 이벤트
     document.querySelector("#move-button").addEventListener("click", function(){
       if (posx >= 0 && posy >= 0) {
         socket.send(JSON.stringify(sendData));
@@ -355,9 +369,11 @@
     })
     
 
-    let whiteuser;
-    let blackuser;
 
+
+
+
+    //아직 미구현 혹은 사용하지 않는 애들
     let leftTime = 30;
     let rightTime = 30;
     let current = 'left';   
@@ -367,27 +383,6 @@
     const rightDisplay = document.getElementById('right-time');
     const moveBtn = document.getElementById('move-button');
     const exitBtn = document.getElementById('exit-button');
-
-    //게임시작시 흑백 선정과 버튼 활성화
-    function gameStart() {
-      console.log("game Start")
-      if ( parseInt(Math.random() * 10) % 2 == 0){
-        whiteuser = user1.id;
-        blackuser = user2.id;
-      } else{
-        whiteuser = user2.id;
-        blackuser = user1.id;
-      }
-      document.querySelector("#move-button").disabled = false;
-      //document.querySelector(".boardbutton").removeAttribute("disabled");
-      startTimer(); // 타이머 시작
-    };
-    
-    // 바둑돌 두기 이벤트. 미구현
-    // document.querySelector(".boardbutton").addEventListener('click',function(){
-    //   pos.val();
-    //   pos = this.parentElemnt.id;
-    // });
 
 
     /*
