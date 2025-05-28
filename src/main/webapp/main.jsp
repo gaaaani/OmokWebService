@@ -2,23 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="com.shinhan5goodteam.omok.model.Room"%>
 <%@ page import="com.shinhan5goodteam.omok.model.User"%>
-<%!// HEX 매핑 함수
-	public String getProfileColorHex(String color) {
-		if ("orange".equals(color))
-			return "#F3B671";
-		if ("pink".equals(color))
-			return "#F2BFCB";
-		if ("gray".equals(color))
-			return "#A4B2C0";
-		if ("navy".equals(color))
-			return "#5874A0";
-		return "#D8CFE2";
-	}%>
 
 <%
 	User loginUser = (User) request.getAttribute("user"); // 로그인 유저 정보
 	String loginProfileImagePath = "img/" + loginUser.getProfileimage() + ".png";
-	String loginProfileColorHex = getProfileColorHex(loginUser.getProfilecolor());
+	String loginProfileColor = loginUser.getProfilecolor();
 %>
 <DOCTYPE html>
 <html lang="en">
@@ -42,7 +30,7 @@
 				</a>
 				<a href="myprofil.jsp">
 					<div class="mypage_icon" id="mypageIcon"
-						style="background-color: <%=loginProfileColorHex%>; border-radius: 50%; padding: 5px;">
+						style="background-color: <%=loginProfileColor%>; border-radius: 50%; padding: 5px;">
 						<img src="<%=loginProfileImagePath%>" alt="마이페이지" />
 					</div>
 				</a>
@@ -60,7 +48,7 @@
 				if (roomList != null && !roomList.isEmpty()) {
 					for (Room room : roomList) {
 						String profileImagePath = "img/" + room.getProfileImage() + ".png";
-						String profileColorHex = getProfileColorHex(room.getProfileColor());
+						String profileColor = room.getProfileColor();
 				%>
 				<a href="game.jsp?roomId=<%= room.getRoomId() %>" class="room-box-link">
 					<div class="room-box">
@@ -72,11 +60,11 @@
 						<div class=profile>
 							<div class="room-right">
 								<div class="room-point"
-									style="background-color: <%=getProfileColorHex(room.getProfileColor())%>;">
+									style="background-color: <%=room.getProfileColor()%>;">
 									<%=room.getNickName()%>
 								</div>
 								<div class="image-container"
-									style="background-color: <%=getProfileColorHex(room.getProfileColor())%>;">
+									style="background-color: <%=room.getProfileColor()%>;">
 									<img src="<%=profileImagePath%>" alt="프로필 이미지" />
 								</div>
 							</div>

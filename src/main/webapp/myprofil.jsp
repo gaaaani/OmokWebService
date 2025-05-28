@@ -16,7 +16,7 @@
     if (profileImage == null || profileImage.isBlank()) profileImage = "moli";
 
     String profileColor = user.getProfilecolor();
-    if (profileColor == null || profileColor.isBlank()) profileColor = "orange";
+    if (profileColor == null || profileColor.isBlank()) profileColor = "#F3B671";
 
     String profileName = "캐릭터";
     switch (profileImage) {
@@ -26,14 +26,6 @@
         case "lay": profileName = "레이"; break;
     }
 
-    String bgColor = "#ffffff";
-    switch (profileColor) {
-        case "orange": bgColor = "#F3B671"; break;
-        case "pink": bgColor = "#F2BFCB"; break;
-        case "gray": bgColor = "#A4B2C0"; break;
-        case "light-purple": bgColor = "#D8CFE2"; break;
-        case "navy": bgColor = "#5874A0"; break;
-    }
 %>
 
 <!DOCTYPE html>
@@ -115,10 +107,10 @@
 
       <div id="profile_box_wrapper">
         <div id="profile_preview">
-          <div class="profile_circle" style="background-color:<%= bgColor %>">
+          <div class="profile_circle" style="background-color:<%= user.getProfilecolor() %>">
             <img src="img/<%= profileImage %>.png" alt="선택된 캐릭터" id="selected_character_img" />
           </div>
-          <div id="selected_character_name" style="background-color:<%= bgColor %>"><%= nickname %></div>
+          <div id="selected_character_name" style="background-color:<%= user.getProfilecolor() %>"><%= nickname %></div>
         </div>
 
         <div id="character_selection_box">
