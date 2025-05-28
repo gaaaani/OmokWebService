@@ -5,15 +5,6 @@
 <%@ page import="com.shinhan5goodteam.omok.model.History" %>
 <%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%@ page import="java.util.List" %>
-<%! // HEX 매핑 함수
-    public String getProfileColorHex(String color) {
-        if ("orange".equals(color)) return "#F3B671";
-        if ("pink".equals(color)) return "#F2BFCB";
-        if ("gray".equals(color)) return "#A4B2C0";
-        if ("navy".equals(color)) return "#5874A0";
-        return "#D8CFE2";
-    }
-%>
 <%
     User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
     List<History> historyList = (List<History>) request.getAttribute("historyList");
@@ -25,7 +16,7 @@
     int userRank = (Integer) request.getAttribute("userRank");
     String nickname = user.getNickname();
     int points = user.getPoints();
-    String profileColorHex = getProfileColorHex(user.getProfilecolor());
+    String profileColor = user.getProfilecolor();
 %>
 
 <!DOCTYPE html>
@@ -84,11 +75,11 @@
             <div class="container">
                 <div class="profile-container">
 
-                    <div class="profile" style="background-color: <%= profileColorHex %>;" >
+                    <div class="profile" style="background-color: <%= user.getProfilecolor() %>;" >
                         <img src="<%= profileImagePath %>" alt="프로필 이미지" />
 
                     </div>
-                    <div class="name-box" style="background-color: <%= profileColorHex %>;"><%= nickname %></div>
+                    <div class="name-box" style="background-color: <%= user.getProfilecolor() %>;"><%= nickname %></div>
                 </div>
                 <div class="score-container">
                     <div class="score-box1">
@@ -116,7 +107,7 @@
                         String opponentNickname = (String) hv.get("opponentNickname");
                         int opponentPoints = (Integer) hv.get("opponentPoints");
                         String opponentProfileImagePath = (String) hv.get("opponentProfileImagePath");
-                        String opponentProfileColorHex = (String) hv.get("opponentProfileColorHex");
+                        String opponentProfileColor = (String) hv.get("opponentProfileColor");
                         String winner = (String) hv.get("winner");
                         String endDate = (String) hv.get("endDate");
                 %>
@@ -128,9 +119,9 @@
                     </div>
                     <div class="result">
                         <!-- 내 정보 -->
-                        <div class="user-profile profile" style="background-color: <%= profileColorHex %>;">
+                        <div class="user-profile profile" style="background-color: <%= user.getProfilecolor() %>;">
                             <img src="<%= profileImagePath %>" alt="프로필 이미지" />
-                            <div class="name-box" style="background-color: <%= profileColorHex %>;" ><%= nickname %></div>
+                            <div class="name-box" style="background-color: <%= user.getProfilecolor() %>;" ><%= nickname %></div>
                         </div>
                         <div class="rank-box">
                             <div class="rank">오목조목킹 : <%= points %> 점</div>
@@ -140,9 +131,9 @@
                     <h3>VS</h3>
                     <div class="result">
                         <!-- 상대방 정보 -->
-                        <div class="opponent-profile profile" style="background-color: <%= opponentProfileColorHex %>;">
+                        <div class="opponent-profile profile" style="background-color: <%= opponentProfileColor %>;">
                             <img src="<%= opponentProfileImagePath %>" alt="프로필 이미지" />
-                            <div class="name-box" style="background-color: <%= opponentProfileColorHex %>;"><%= opponentNickname %></div>
+                            <div class="name-box" style="background-color: <%= opponentProfileColor %>;"><%= opponentNickname %></div>
                         </div>
                         <div class="rank-box">
                             <div class="rank">오목조목킹 : <%= opponentPoints %> 점</div>
@@ -171,10 +162,10 @@
                             <div class="rank-number"><%= rankNum %>위</div>
                             <!-- 프로필, 닉네임 -->
                             <div class="rank-info">
-                                <div class="profile" style="background-color: <%= getProfileColorHex(rankedUser.getProfilecolor()) %>;">
+                                <div class="profile" style="background-color: <%= rankedUser.getProfilecolor() %>;">
                                     <img src="img/<%= rankedUser.getProfileimage() %>.png" alt="프로필 이미지">
                                 </div>
-                                <span class="nickname" style="background-color: <%= getProfileColorHex(rankedUser.getProfilecolor()) %>;">
+                                <span class="nickname" style="background-color: <%= rankedUser.getProfilecolor() %>;">
                                     <%= rankedUser.getNickname() %>
                                 </span>
                             </div>
@@ -192,10 +183,10 @@
                     <% if (userRank > 0) { %>
                         <div class="current-user-ranking">
                             <div class="rank-number"><%= userRank %>위</div>
-                            <div class="profile" style="background-color: <%= profileColorHex %>;">
+                            <div class="profile" style="background-color: <%= profileColor %>;">
                                 <img src="<%= profileImagePath %>" alt="프로필 이미지">
                             </div>
-                            <span class="nickname" style="background-color: <%= profileColorHex %>;">
+                            <span class="nickname" style="background-color: <%= profileColor %>;">
                                 <%= nickname %>
                             </span>
                             <div class="rank-points"><%= points %>점</div>

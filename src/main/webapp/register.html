@@ -53,17 +53,17 @@
                         <div id="listbox">
                             <img id="sol" class="charshape" src="img/sol.png" data-value="sol">
                             <img id="lay" class="charshape" src="img/lay.png" data-value="lay">
-                            <img id="moli" class="charshape" src="img/moli.png" data-value="moil">
+                            <img id="moli" class="charshape" src="img/moli.png" data-value="moli">
                             <img id="rino" class="charshape" src="img/rino.png" data-value="rino">
                         </div>
                     </div>
                     <div id="bgcolor">
                         <div id="colorlist">
-                            <img id="orange" class="colorshape" data-value="orange">
-                            <img id="pink" class="colorshape" data-value="pink">
-                            <img id="gray" class="colorshape" data-value="gray">
-                            <img id="skyblue" class="colorshape" data-value="skyblue">
-                            <img id="navy" class="colorshape" data-value="navy">
+                            <img id="orange" class="colorshape" data-value="#F3B671">
+                            <img id="pink" class="colorshape" data-value="#F2BFCB">
+                            <img id="light-purple" class="colorshape" data-value="#D8CFE2">
+                            <img id="gray" class="colorshape" data-value="#A4B2C0">
+                            <img id="navy" class="colorshape" data-value="#5874A0">
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
         let isCheckingId = false;
         let isCheckingNickName = false;
         let usercharacter = "sol";
-        let userbackground = "orange";
+        let userbackground = "#F3B671";
 
         $("#checkid").on("click",function(){
             const userid = $("#inputid").val();
@@ -174,12 +174,12 @@
             $(this).css("border","1px solid black");
             userbackground = $(this).data('value');
         })
-        $("#gray").on('click', function(){
+        $("#light-purple").on('click', function(){
             $(".colorshape").css("border","none");
             $(this).css("border","1px solid black");
             userbackground = $(this).data('value');
         })
-        $("#skyblue").on('click', function(){
+        $("#gray").on('click', function(){
             $(".colorshape").css("border","none");
             $(this).css("border","1px solid black");
             userbackground = $(this).data('value');
