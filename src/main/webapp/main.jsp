@@ -73,7 +73,7 @@
                         <%=room.getPoints()%></div>
                   </div>
                </div>
-            </a>
+            <br>
             <%
             }
             } else {

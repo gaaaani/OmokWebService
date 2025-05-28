@@ -81,6 +81,7 @@
         let usercharacter = "sol";
         let userbackground = "#F3B671";
 
+        //아이디 중복 요청
         $("#checkid").on("click",function(){
             const userid = $("#inputid").val();
             if(userid === ''){
@@ -92,16 +93,8 @@
                 data: { command:'checkid',userid: userid},
                 success: function(result){
                     if (result ==='true'){
-                        // $('#unusealbe').show();
-                        // setTimeout(function() {
-                        //     $('#unusealbe').hide();
-                        // },2000);
                         alert("사용 불가능");
                     } else {
-                        // $('#useable').show();
-                        // setTimeout(function() {
-                        //     $('#useable').hide();
-                        // },2000);
                         $("#inputid").prop('disabled',true);
                         isCheckingId = true;
                         alert("사용 가능");
@@ -110,6 +103,7 @@
             })
         })
         
+        //닉네임 중복 요청
         $("#checknickname").on("click",function(){
             const usernickname = $("#inputnickname").val();
             if(usernickname === ''){
@@ -121,16 +115,8 @@
                 data: { command:'checknickname',usernickname: usernickname},
                 success: function(result){
                     if (result ==='true'){
-                        // $('#unusealbe').show();
-                        // setTimeout(function() {
-                        //     $('#unusealbe').hide();
-                        // },2000);
                         alert("사용 불가능");
                     } else {
-                        // $('#useable').show();
-                        // setTimeout(function() {
-                        //     $('#useable').hide();
-                        // },2000);
                         $("#inputnickname").prop('disabled',true);
                         isCheckingNickName = true;
                         alert("사용 가능");
@@ -139,6 +125,8 @@
             })
         })
 
+
+        //캐릭터 선택
         $("#sol").on('click', function(){
             $(".charshape").css("border","none");
             $(this).css("border","1px solid black");
@@ -163,7 +151,7 @@
             usercharacter = $(this).data('value');
         })
 
-
+        // 배경색 선택
         $("#orange").on('click', function(){
             $(".colorshape").css("border","none");
             $(this).css("border","1px solid black");
@@ -190,7 +178,7 @@
             userbackground = $(this).data('value');
         })
 
-
+        //회원가입 요청
         $("#createbutton").on('click',function(){
             const userid = $("#inputid").val();
             const userpassword = $("#inputpassword").val();

@@ -26,12 +26,6 @@ public class GameHistory extends HttpServlet {
         super();
     }
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {}
-
-    @Override
-    public void destroy() {}
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -84,7 +84,7 @@ public class GamePlayWebSocket {
                     // 유저 정보 전달
                     for (Session client : clients) {
                         if (client.isOpen() && !client.equals(sender)) {
-                            System.out.println("sendUser");
+                            // System.out.println("sendUser");
                             client.getBasicRemote().sendText(message);
                         }
                     }
@@ -129,7 +129,7 @@ public class GamePlayWebSocket {
 
                     if(board.getBoard()[x][y] == 0 ){
                         if(board.placeStone(userId,x,y)){
-                            System.out.println("placeStone");
+                            // System.out.println("placeStone");
                             GameMessage gameMessage = new GameMessage(
                                 "move",
                                 Integer.parseInt(roomId),
@@ -151,7 +151,7 @@ public class GamePlayWebSocket {
                         }
 
                         if(board.isOmok(userId, x, y)){
-                            System.out.println("gameOver");
+                            // System.out.println("gameOver");
                             GameMessage gameMessage = new GameMessage(
                                 "over",
                                 Integer.parseInt(roomId),
@@ -162,11 +162,9 @@ public class GamePlayWebSocket {
 
                             RoomDAO.setGameOver(board.getRoomId());
                             if(board.getUser1Id().equals(board.getCurrentTurn())){
-                                System.out.println("점수반영");
                                 UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() - 100);
                                 UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() + 100);
                             } else {
-                                System.out.println("점수반영");
                                 UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() + 100);
                                 UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() - 100);
                             }
@@ -185,7 +183,7 @@ public class GamePlayWebSocket {
                         }
                     } else {
                         if(board.placeStone(userId,x,y)){
-                            System.out.println("not placeStone");
+                            // System.out.println("not placeStone");
                             GameMessage gameMessage = new GameMessage(
                                 "move",
                                 Integer.parseInt(roomId),
@@ -218,13 +216,10 @@ public class GamePlayWebSocket {
                     
                     BoardService board1 = gameService.getBoard(Integer.parseInt(roomId));
                     RoomDAO.setGameOver(board1.getRoomId());
-                    System.out.println(board1.getUser1Id()+" "+board1.getUser2Id()+" "+surrenderId);
                     if(board1.getUser1Id().equals(surrenderId)){
-                        System.out.println("점수반영");
                         UserDAO.updatePoint(board1.getUser1Id(), UserDAO.findById(board1.getUser1Id()).getPoints() - 100);
                         UserDAO.updatePoint(board1.getUser2Id(), UserDAO.findById(board1.getUser2Id()).getPoints() + 100);
                     } else {
-                        System.out.println("점수반영");
                         UserDAO.updatePoint(board1.getUser1Id(), UserDAO.findById(board1.getUser1Id()).getPoints() + 100);
                         UserDAO.updatePoint(board1.getUser2Id(), UserDAO.findById(board1.getUser2Id()).getPoints() - 100);
                     }
@@ -274,7 +269,7 @@ public class GamePlayWebSocket {
 
         //클라이언트가 나갔는데 빈 방이 되면 방 상태 변경
         if (clients.size() == 0){
-            System.out.println("gameOver");
+            // System.out.println("gameOver");
             RoomDAO.setGameOver(Integer.parseInt(roomId));
         }
     }

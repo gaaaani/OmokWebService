@@ -22,7 +22,6 @@ public class BoardService {
         }
         this.board = new int[15][15];
         this.currentTurn = user1Id;
-		// RoomDAO.setBlackWhiteUsers(this.user1Id, this.user2Id, roomId);
     }
 
 	//보드에 돌 적용
@@ -37,6 +36,7 @@ public class BoardService {
         return false;
     }
 
+	//보드 출력
     public void print() {
         for (int row = 0; row < size; row++) {
         	System.out.printf("%2d", row);

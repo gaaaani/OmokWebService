@@ -30,7 +30,7 @@ public class HistoryDAO {
                     history.setWinnerId(rs.getString("WINNER_ID"));
                     list.add(history);
                 } catch (Exception e) {
-                    System.out.println("Error at HISTORY_ID: " + rs.getInt("HISTORY_ID"));
+                    // System.out.println("Error at HISTORY_ID: " + rs.getInt("HISTORY_ID"));
                     e.printStackTrace();
                 }
             }
