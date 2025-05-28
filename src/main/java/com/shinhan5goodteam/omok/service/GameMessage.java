@@ -1,5 +1,6 @@
 package com.shinhan5goodteam.omok.service;
 
+//서버에서 클라이언트에게 전달해줄 메세지를 담는 객체
 public class GameMessage {
     private String type;
     private int roomId;

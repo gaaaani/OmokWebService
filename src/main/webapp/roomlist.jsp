@@ -1,3 +1,4 @@
+<!-- 방 객체 반환 -->
 <c:forEach var="room" items="${roomList}">
     <div>
         <p>방 이름: ${room.roomName}</p>

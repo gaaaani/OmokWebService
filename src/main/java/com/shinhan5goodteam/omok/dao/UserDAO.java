@@ -199,7 +199,6 @@ public class UserDAO {
 
             int rows = pstmt.executeUpdate();
             if (rows > 0) {
-                System.out.println("진짜 점수 반영");
                 return true;
             }
         } catch (Exception e) {
