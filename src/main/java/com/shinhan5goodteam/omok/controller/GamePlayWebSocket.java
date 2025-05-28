@@ -19,7 +19,9 @@ import com.google.gson.JsonParser;
 import com.shinhan5goodteam.omok.service.BoardService;
 import com.shinhan5goodteam.omok.service.GameMessage;
 import com.shinhan5goodteam.omok.service.GameService;
+import com.shinhan5goodteam.omok.dao.HistoryDAO;
 import com.shinhan5goodteam.omok.dao.RoomDAO;
+import com.shinhan5goodteam.omok.dao.UserDAO;
 
 import javax.websocket.Session;
 
@@ -159,6 +161,15 @@ public class GamePlayWebSocket {
                             );
 
                             RoomDAO.setGameOver(board.getRoomId());
+                            if(board.getUser1Id() != board.getCurrentTurn()){
+                                UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() + 100);
+                                UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() - 100);
+                            } else {
+                                UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() - 100);
+                                UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() + 100);
+                            }
+                            HistoryDAO.addHistory(RoomDAO.getRoomById(Integer.parseInt(roomId)), board.getCurrentTurn().equals(board.getUser1Id()) ? board.getUser2Id() : board.getUser1Id());
+                            
 
                             // JSON 변환
                             Gson gson1 = new Gson();
@@ -227,10 +238,10 @@ public class GamePlayWebSocket {
             }
         }
 
-        // if (RoomDAO.checkRoomStatus(Integer.parseInt(roomId))){
-        //     System.out.println("gameOver");
-            
-        // }
+        if (clients.size() == 0){
+            System.out.println("gameOver");
+            RoomDAO.setGameOver(Integer.parseInt(roomId));
+        }
     }
     
 

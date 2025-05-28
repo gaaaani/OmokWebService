@@ -329,7 +329,7 @@
             }
           } else if (data1.type == "exit"){
             const data1 = JSON.parse(e.data);
-            if (data1.type === "exit" && data1.redirect === "roomList") {
+            if (data1.redirect == "roomList") {
               window.location.href = "roomList";
             }
           }

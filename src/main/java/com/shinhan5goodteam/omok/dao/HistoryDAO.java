@@ -42,7 +42,7 @@ public class HistoryDAO {
 
     //게임 종료 시 전적 추가
     public static boolean addHistory(Room room, String winnerId){
-        String sql = "insert into user_table (start_time,end_time,black_id,white_id,winner_id,room_id) values(?,?,?,?,?,?)";
+        String sql = "insert into history (start_time,end_time,black_id,white_id,winner_id,room_id) values(?,?,?,?,?,?)";
         try (Connection conn = DButil.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
