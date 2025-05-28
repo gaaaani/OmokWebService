@@ -1,8 +1,9 @@
 <!-- myprofil.jsp -->
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
+<%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%
-    User user = (User) session.getAttribute("user");
+    User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
     if (user == null) {
         response.sendRedirect("login.jsp");
         return;

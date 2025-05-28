@@ -148,17 +148,6 @@
   font-family: 'nanumesquareneo', sans-serif;
 }
 
-#exit-button {
-  margin-top: 12px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background-color: #a3c4de;
-  border: none;
-  font-weight: bold;
-  font-family: 'nanumesquareneo', sans-serif;
-
-}
-
 #popup-overlay {
   display: none;
   /* 기본 숨김 */
@@ -209,6 +198,25 @@
   font-weight: bold;
 }
 
+.surrender {
+  margin: 10px 8px 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.cancle-button {
+  margin: 10px 8px 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+
 /* 팝업 박스 */
 .popup-box {
   display: none;
@@ -229,7 +237,7 @@
 }
 
 /* 승리 팝업만 살짝 위쪽 */
-#winner-popup .popup-box {
+#winner-popup.popup-box {
   top: 30%;
   transform: translateX(-50%);
 }
@@ -260,5 +268,12 @@
   margin: 0 auto;
 }
 
-
-
+button#surrenderbutton {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #a3c4de;
+  border: 1px solid hwb(210 64% 28%);
+  font-weight: bold;
+  font-family: 'nanumesquareneo', sans-serif;
+}

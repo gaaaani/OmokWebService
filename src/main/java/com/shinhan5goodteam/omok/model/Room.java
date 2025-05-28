@@ -1,14 +1,16 @@
 package com.shinhan5goodteam.omok.model;
 
+import java.sql.Date;
+
 public class Room {
 	private int roomId;
 	private String userId;
 	private String roomName;
 	private String roomExplain;
-	private String createdAt;
+	private Date createdAt;
 	private String blackId;
 	private String whiteId;
-	private String closedAt;
+	private Date closedAt;
 	private String status;
 	private String profileColor;
 	private String profileImage;
@@ -47,11 +49,11 @@ public class Room {
 		this.roomExplain = roomExplain;
 	}
 
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -71,11 +73,11 @@ public class Room {
 		this.whiteId = whiteId;
 	}
 
-	public String getClosedAt() {
+	public Date getClosedAt() {
 		return closedAt;
 	}
 
-	public void setClosedAt(String closedAt) {
+	public void setClosedAt(Date closedAt) {
 		this.closedAt = closedAt;
 	}
 

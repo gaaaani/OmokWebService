@@ -3,6 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
 <%@ page import="com.shinhan5goodteam.omok.model.History" %>
+<%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%@ page import="java.util.List" %>
 <%! // HEX 매핑 함수
     public String getProfileColorHex(String color) {
@@ -14,7 +15,7 @@
     }
 %>
 <%
-    User user = (User) request.getAttribute("user");
+    User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
     List<History> historyList = (List<History>) request.getAttribute("historyList");
     int total = (Integer) request.getAttribute("total");
     int win = (Integer) request.getAttribute("win");

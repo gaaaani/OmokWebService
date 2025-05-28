@@ -161,12 +161,14 @@ public class GamePlayWebSocket {
                             );
 
                             RoomDAO.setGameOver(board.getRoomId());
-                            if(board.getUser1Id() != board.getCurrentTurn()){
-                                UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() + 100);
-                                UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() - 100);
-                            } else {
+                            if(board.getUser1Id().equals(board.getCurrentTurn())){
+                                System.out.println("점수반영");
                                 UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() - 100);
                                 UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() + 100);
+                            } else {
+                                System.out.println("점수반영");
+                                UserDAO.updatePoint(board.getUser1Id(), UserDAO.findById(board.getUser1Id()).getPoints() + 100);
+                                UserDAO.updatePoint(board.getUser2Id(), UserDAO.findById(board.getUser2Id()).getPoints() - 100);
                             }
                             HistoryDAO.addHistory(RoomDAO.getRoomById(Integer.parseInt(roomId)), board.getCurrentTurn().equals(board.getUser1Id()) ? board.getUser2Id() : board.getUser1Id());
                             
@@ -210,6 +212,38 @@ public class GamePlayWebSocket {
                     exitMsg.addProperty("type", "exit");
                     exitMsg.addProperty("redirect", "roomList");
                     sender.getBasicRemote().sendText(exitMsg.toString());
+                    break;
+                case "surrender":
+                    String surrenderId = json.get("userId").getAsString();
+                    
+                    BoardService board1 = gameService.getBoard(Integer.parseInt(roomId));
+                    RoomDAO.setGameOver(board1.getRoomId());
+                    System.out.println(board1.getUser1Id()+" "+board1.getUser2Id()+" "+surrenderId);
+                    if(board1.getUser1Id().equals(surrenderId)){
+                        System.out.println("점수반영");
+                        UserDAO.updatePoint(board1.getUser1Id(), UserDAO.findById(board1.getUser1Id()).getPoints() - 100);
+                        UserDAO.updatePoint(board1.getUser2Id(), UserDAO.findById(board1.getUser2Id()).getPoints() + 100);
+                    } else {
+                        System.out.println("점수반영");
+                        UserDAO.updatePoint(board1.getUser1Id(), UserDAO.findById(board1.getUser1Id()).getPoints() + 100);
+                        UserDAO.updatePoint(board1.getUser2Id(), UserDAO.findById(board1.getUser2Id()).getPoints() - 100);
+                    }
+                    HistoryDAO.addHistory(RoomDAO.getRoomById(Integer.parseInt(roomId)), surrenderId.equals(board1.getUser1Id()) ? board1.getUser2Id() : board1.getUser1Id());
+                    
+                    JsonObject surrenderMsg = new JsonObject();
+                    surrenderMsg.addProperty("type", "surrender");
+                    surrenderMsg.addProperty("roomId", Integer.parseInt(roomId));
+                    surrenderMsg.addProperty("userId", surrenderId);
+                    
+                    Gson gson1 = new Gson();
+                    String jsonMessage = gson1.toJson(surrenderMsg);
+                    for (Session client : clients) {
+                        if (client.isOpen()) {
+                            client.getBasicRemote().sendText(jsonMessage);
+                        }
+                    }
+
+
                     break;
                 default:
                     System.out.println("알 수 없는 type: " + type);
