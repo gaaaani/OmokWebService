@@ -74,11 +74,11 @@
             <div class="container">
                 <div class="profile-container">
 
-                    <div class="profile" style="background-color: <%= profileColor %>;" >
+                    <div class="profile" style="background-color: <%= user.getProfilecolor() %>;" >
                         <img src="<%= profileImagePath %>" alt="프로필 이미지" />
 
                     </div>
-                    <div class="name-box" style="background-color: <%= profileColor %>;"><%= nickname %></div>
+                    <div class="name-box" style="background-color: <%= user.getProfilecolor() %>;"><%= nickname %></div>
                 </div>
                 <div class="score-container">
                     <div class="score-box1">
@@ -118,9 +118,9 @@
                     </div>
                     <div class="result">
                         <!-- 내 정보 -->
-                        <div class="user-profile profile" style="background-color: <%= profileColor %>;">
+                        <div class="user-profile profile" style="background-color: <%= user.getProfilecolor() %>;">
                             <img src="<%= profileImagePath %>" alt="프로필 이미지" />
-                            <div class="name-box" style="background-color: <%= profileColor %>;" ><%= nickname %></div>
+                            <div class="name-box" style="background-color: <%= user.getProfilecolor() %>;" ><%= nickname %></div>
                         </div>
                         <div class="rank-box">
                             <div class="rank">오목조목킹 : <%= points %> 점</div>
