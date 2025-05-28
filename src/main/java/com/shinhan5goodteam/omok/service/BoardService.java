@@ -27,7 +27,7 @@ public class BoardService {
     public boolean placeStone(String userId, int x, int y){
         if ( board[x][y] == 0 && currentTurn.equals(userId) ){
             board[x][y] = userId.equals(user1Id) ? 1 : 2; 
-            currentTurn = userId.equals(user1Id) ? user2Id : user1Id;
+            this.currentTurn = userId.equals(user1Id) ? user2Id : user1Id;
 
             return true;
         }

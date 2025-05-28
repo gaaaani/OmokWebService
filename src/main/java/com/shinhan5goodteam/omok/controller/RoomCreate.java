@@ -32,9 +32,8 @@ public class RoomCreate extends HttpServlet {
     room.setStatus("ready");
 
     int roomId = RoomDAO.insertRoom(room);
-
     if (roomId != -1) {
-      response.sendRedirect("game.jsp?roomId=" + roomId);
+      response.sendRedirect("game.jsp?roomId="+roomId);
     } else {
       response.getWriter().write("<script>alert('방 생성 실패'); history.back();</script>");
     }
