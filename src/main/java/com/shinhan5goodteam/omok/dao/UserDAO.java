@@ -189,12 +189,13 @@ public class UserDAO {
     }
 
     // 점수 업데이트
-    public boolean updatePoint(String userid, int point) {
+    public static boolean updatePoint(String userid, int point) {
         String sql = "UPDATE user_table SET points = ? WHERE user_id = ?";
         try (Connection conn = DButil.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, point);
+            pstmt.setString(2, userid);
 
             int rows = pstmt.executeUpdate();
             if (rows > 0) {
