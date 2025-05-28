@@ -10,7 +10,7 @@
 html, body {
     overflow: hidden;
     height: 100%;
-}
+} 
 body{
     font-family: 'nanumesquareneo';
     margin: 0;
@@ -217,7 +217,7 @@ footer {
 
 #modal-inner {
     width: 339px;
-    height: 483px;
+    height: 385px;
     background-color: #ffffff;
     border-radius: 12px;
     box-sizing: border-box;
@@ -250,23 +250,23 @@ footer {
 
 #modal-content {
     width: 293px;
-    height: 370px;
+    height: 273px;
     background-color: #CFE2F4;
     border-radius: 10px;
-    padding: 0 16px;
+    padding: 15px;
     margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-common {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-family: 'nanumesquareneo';
-    font-weight: bold;
+    font-family: 'nanumesquareneo_b';
 }
 
 .modal-common:not(:first-of-type) {
@@ -276,8 +276,6 @@ footer {
 .modal-common label,
 .code-label {
     font-size: 15px;
-    font-weight: bold;
-    font-family: 'nanumesquareneo';
     margin-bottom: 10px;
 }
 
@@ -335,16 +333,15 @@ footer {
 }
 
 .modal-createbtn {
-    width: 120px;
+    width: 254px;
     height: 46px;
-    margin: 40px auto 0 auto;
-    background-color: #A3A3A3;
+    margin: 24px auto 0 auto;
+    background-color: #585858;
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 15px;
-    font-weight: bold;
-    font-family: 'nanumesquareneo';
+    font-family: 'nanumesquareneo_b';
     cursor: pointer;
     display: block;
 }
