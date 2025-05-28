@@ -279,17 +279,17 @@ body{
     top: 4px;
     background-color: #F6C8E8;
 }
-#gray{
+#light-purple{
     position: absolute;
     left: 155px;
     top: 4px;
-    background-color: #E9E9E9;
+    background-color: #D8CFE2;
 }
-#skyblue{
+#gray{
     position: absolute;
     left: 210px;
     top: 4px;
-    background-color: #CFE2F4;
+    background-color: #A4B2C0;
 }
 #navy{
     position: absolute;

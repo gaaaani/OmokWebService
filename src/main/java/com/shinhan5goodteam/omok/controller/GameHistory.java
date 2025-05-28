@@ -32,14 +32,6 @@ public class GameHistory extends HttpServlet {
     @Override
     public void destroy() {}
 
-    // HEX 매핑 함수 (컨트롤러에서 사용)
-    private String getProfileColorHex(String color) {
-        if ("orange".equals(color)) return "#F3B671";
-        if ("pink".equals(color)) return "#F2BFCB";
-        if ("gray".equals(color)) return "#A4B2C0";
-        if ("navy".equals(color)) return "#5874A0";
-        return "#D8CFE2";
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,7 +94,7 @@ public class GameHistory extends HttpServlet {
             map.put("opponentNickname", opponentUser.getNickname());
             map.put("opponentPoints", opponentUser.getPoints());
             map.put("opponentProfileImagePath", "img/" + opponentUser.getProfileimage() + ".png");
-            map.put("opponentProfileColorHex", getProfileColorHex(opponentUser.getProfilecolor()));
+            map.put("opponentProfileColor", opponentUser.getProfilecolor());
 
             // 날짜 포맷
             String endDate = "";
