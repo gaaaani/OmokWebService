@@ -46,8 +46,8 @@ public class HistoryDAO {
         try (Connection conn = DButil.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, room.getCreatedAt());
-            pstmt.setString(2, room.getClosedAt());
+            pstmt.setDate(1, room.getCreatedAt());
+            pstmt.setDate(2, room.getClosedAt());
             pstmt.setString(3, room.getBlackId());
             pstmt.setString(4, room.getWhiteId());
             pstmt.setString(5, winnerId);

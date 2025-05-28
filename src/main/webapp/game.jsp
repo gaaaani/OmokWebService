@@ -7,7 +7,7 @@
   
   //유저 객체 생성된
   //user1 본인. user2는 상대방.
-  User user1 = (User) session.getAttribute("user");
+  User user1 = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
   User user2 = null;
 
   //방 객체 생성. 원래는 생성된 Room 객체를 가져옴.
@@ -80,15 +80,15 @@
         </div>
         <button id="move-button" disabled>착수</button>
       </div>
-      <button id="surrender-button">항복</button>
+      <button id="surrenderbutton">나가기</button>
     </div>
 
     <div id="popup-overlay">
       <!-- 1) 나가기 확인 팝업 -->
       <div id="surrender-popup" class="popup-box">
-        <p>항복하시겠습니까?.</p>
+        <p>게임 중에 퇴장시 패배처리됩니다.</p>
         <button class="cancle-button" onclick="closeAllPopups()">취소</button>
-        <button class="surrender" onclick="confirmExit()">항복</button>
+        <button class="surrender" onclick="confirmExit()">나가기</button>
       </div>
 
       <!-- 2) 승리 팝업 -->
@@ -171,6 +171,14 @@
         x: posx,
         y: posy
   };
+
+  //타이머 관련 변수
+  let leftTime = 30;
+  let rightTime = 30;
+  let current;
+  let timerId = null;
+  const leftDisplay = document.getElementById('left-time');
+  const rightDisplay = document.getElementById('right-time');
 
   //바둑알 두기 함수
   function draw() {
@@ -314,15 +322,22 @@
             if (data1.userId == user1.id){
               document.getElementById(data1.x+"-"+data1.y).style.backgroundColor = color == "black" ? "white" : "black";
               document.querySelector("#move-button").disabled = false;
+              current = "left";
+              leftTime = 30;
+              rightTime = 30;
               document.querySelectorAll(".cell").forEach(cell => {
                 cell.addEventListener("click", draw);
               });
             } else {
               document.querySelector("#move-button").disabled = true;
+              current = "right";
+              leftTime = 30;
+              rightTime = 30;
             }
           } else if (data1.type == "start"){ // 게임 시작 시 최초 1회 받음. 흑백 선정 데이터
             if (data1.userId == user1.id){
               document.querySelector("#move-button").disabled = false;
+              current = "left";
               document.querySelectorAll(".cell").forEach(cell => {
                 cell.addEventListener("click", draw);
               });
@@ -333,7 +348,10 @@
               document.querySelector(".user2stone").innerHTML = "⚫";
               document.querySelector(".user1stone").innerHTML = "⚪";
               color = "white";
+              current = "right";
             }
+            room.status = "start";
+            startTimer();
           } else if (data1.type == "over"){ //게임 종료 데이터 받음.
             if(user1.id == data1.userId){
               showLoserPopup();
@@ -341,9 +359,15 @@
               showWinnerPopup();
             }
           } else if (data1.type == "exit"){ // 메인으로 나가라는 데이터 받음
-            const data1 = JSON.parse(e.data);
             if (data1.redirect == "roomList") {
               window.location.href = "roomList";
+            }
+          } else if (data1.type == "surrender"){
+            clearInterval(timerId);
+            if (data1.userId == user1.id){
+              showLoserPopup();
+            } else {
+              showWinnerPopup();
             }
           }
         }
@@ -368,28 +392,6 @@
       }
     })
     
-
-
-
-
-
-    //아직 미구현 혹은 사용하지 않는 애들
-    let leftTime = 30;
-    let rightTime = 30;
-    let current = 'left';   
-    let timerId = null;
-
-    const leftDisplay = document.getElementById('left-time');
-    const rightDisplay = document.getElementById('right-time');
-    const moveBtn = document.getElementById('move-button');
-    const exitBtn = document.getElementById('exit-button');
-
-
-    /*
-    타이머 기능
-    */
-   
-
     // 화면에 시간 업데이트
     function updateDisplays() {
       leftDisplay.textContent = leftTime;
@@ -404,77 +406,68 @@
       timerId = setInterval(() => {
         if (current == 'left') {
           leftTime--;
-          if (leftTime <= 0) return onTimeout('left');
+          if (leftTime <= 0) return onTimeout();
         } else {
           rightTime--;
-          if (rightTime <= 0) return onTimeout('right');
         }
         updateDisplays();
       }, 1000);
       updateDisplays();
     }
+
     //타임 오버
-    function onTimeout(player) {
+    function onTimeout() {
       clearInterval(timerId);
-      alert(`${player == 'left' ? '부엉이' : '곰돌이'} 시간이 초과되었습니다.`);
-      switchTurn();
-    }
-    // 턴 변환
-    function switchTurn() {
-      if (current == 'left') leftTime = 30;
-      else rightTime = 30;
-      current = (current == 'left') ? 'right' : 'left';
-      startTimer();
+      const surrenderMsg = {
+        type:"surrender",
+        roomId: room.roomId,
+        userId: user1.id
+      };
+      socket.send(JSON.stringify(surrenderMsg));
     }
 
-    // “착수” 버튼 클릭 시 턴 전환
-    // moveBtn.addEventListener('click', () => {
-    //   clearInterval(timerId);
-    //   switchTurn();
-    // });
+    //아직 미구현 혹은 사용하지 않는 애들
 
+    const exitBtn = document.getElementById('surrenderbutton');
+    // “나가기” 버튼에 팝업 연결
+    exitBtn.addEventListener('click', showExitPopup);
 
-    // 페이지 로드 시 타이머 시작
-    // window.addEventListener('load', startTimer);
-    /*
-    팝업 제어 함수 모음
-    */
-
-    // // 모든 팝업 닫기
-    // function closeAllPopups() {
-    //   document.getElementById('popup-overlay').style.display = 'none';
-    //   ['exit-popup', 'winner-popup', 'loser-popup'].forEach(id => {
-    //     document.getElementById(id).style.display = 'none';
-    //   });
-    // }
 
     // // 나가기 확인 팝업 열기
-    // function showExitPopup() {
-    //   document.getElementById('popup-overlay').style.display = 'block';
-    //   document.getElementById('exit-popup').style.display = 'block';
-    // }
+    function showExitPopup() {
+      document.getElementById('popup-overlay').style.display = 'block';
+      document.getElementById('surrender-popup').style.display = 'block';
+    }
 
-    // //  나가기(항복) 처리
-    // function confirmExit() {
-    //   closeAllPopups();
-    //   alert('항복 처리되었습니다.');
-    // }
+    // 모든 팝업 닫기
+    function closeAllPopups() {
+      document.getElementById('popup-overlay').style.display = 'none';
+      document.getElementById('surrender-popup').style.display = 'none';
+    }
+
+    //  나가기(항복) 처리
+    function confirmExit() {
+      if (room.status == "ready"){
+        const exit_data = {
+        type : "exit",
+        roomId : room.roomId,
+        userId : user1.id
+        }
+        socket.send(JSON.stringify(exit_data));
+      } else if (room.status == "start") {
+        clearInterval(timerId);
+        const surrenderMsg = {
+        type:"surrender",
+        roomId: room.roomId,
+        userId: user1.id
+        };
+        socket.send(JSON.stringify(surrenderMsg));
+      }
+    }
 
 
 
-    // // 게임 종료 시 호출하는 함수
-    // // winner: 'left' or 'right'
-    // function onGameEnd(winner) {
-    //   clearInterval(timerId);
-    //   if (winner == 'left') {
-    //     showWinnerPopup('부엉이', 100);
-    //   } else {
-    //     showLoserPopup('곰돌이', 100);
-    //   }
-    // }
-
-    // // “나가기” 버튼에 팝업 연결
-    // exitBtn.addEventListener('click', showExitPopup);
+    
 
 
 

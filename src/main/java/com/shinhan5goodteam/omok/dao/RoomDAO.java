@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +112,10 @@ public class RoomDAO {
                 room.setRoomName(rs.getString("room_name"));
                 room.setRoomExplain(rs.getString("room_explain"));
                 room.setStatus(rs.getString("status"));
+                room.setBlackId(rs.getString("black_id"));
+                room.setWhiteId(rs.getString("white_id"));
+                room.setCreatedAt(rs.getDate("created_at"));
+                room.setClosedAt(rs.getDate("closed_at"));
             }
 
             rs.close();
@@ -191,4 +196,22 @@ public class RoomDAO {
         }
         return false;
     }
+
+    //방 상태 최신화
+    public String getRoomStatusById(int roomId) {
+        String sql = "SELECT status FROM room WHERE room_id = ?";
+        try (Connection conn = DButil.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, roomId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("status");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "unknown";
+    }
+
 }
