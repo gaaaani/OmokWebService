@@ -60,21 +60,21 @@ public class BoardService {
     }
 
 	//오목 판단
-    public boolean isOmok(String userId, int col, int row) {
+    public boolean isOmok(String userId, int row, int col) {
 		int stone = userId.equals(user1Id) ? 1 : 2;
 		int[][] dirs = { {1,0}, {0,1}, {1,1}, {1,-1} }; // 4방향
 
 		for (int[] dir : dirs) {
 			int count = 1;
 			// 한 방향
-			int nx = col + dir[0], ny = row + dir[1];
+			int nx = row + dir[0], ny = col + dir[1];
 			while (inRange(nx, ny) && board[ny][nx] == stone) {
 				count++;
 				nx += dir[0];
 				ny += dir[1];
 			}
 			// 반대 방향
-			nx = col - dir[0]; ny = row - dir[1];
+			nx = row - dir[0]; ny = col - dir[1];
 			while (inRange(nx, ny) && board[ny][nx] == stone) {
 				count++;
 				nx -= dir[0];
