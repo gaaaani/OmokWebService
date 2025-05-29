@@ -103,7 +103,7 @@ public class GamePlayWebSocket {
 
                     BoardService board = gameService.getBoard(Integer.parseInt(roomId));
 
-                    if(board.getBoard()[x][y] == 0 ){
+                    if(board.getBoard()[x][y] == 0){
                         if(board.placeStone(userId,x,y)){
                             // System.out.println("placeStone");
                             GameMessage gameMessage = new GameMessage(
@@ -238,16 +238,21 @@ public class GamePlayWebSocket {
         if (clients != null) {
             clients.remove(session);
             System.out.println("클라이언트 연결 종료됨: " + session.getId());
+            //클라이언트가 나갔는데 빈 방이 되면 방 상태 변경
+            if (clients.size() == 0){
+                // System.out.println("gameOver");
+                RoomDAO.setGameOver(Integer.parseInt(roomId));
+            }
             if (clients.isEmpty()) {
                 roomClients.remove(roomId);
             }
         }
 
         //클라이언트가 나갔는데 빈 방이 되면 방 상태 변경
-        if (clients.size() == 0){
-            // System.out.println("gameOver");
-            RoomDAO.setGameOver(Integer.parseInt(roomId));
-        }
+        // if (clients.size() == 0){
+        //     // System.out.println("gameOver");
+        //     RoomDAO.setGameOver(Integer.parseInt(roomId));
+        // }
     }
     
 

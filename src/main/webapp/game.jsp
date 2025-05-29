@@ -4,7 +4,10 @@
 <%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%@ page import="com.shinhan5goodteam.omok.dao.RoomDAO" %>
 <%
-  
+  if (session.getAttribute("user") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+  }
   //유저 객체 생성된
   //user1 본인. user2는 상대방.
   User user1 = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
