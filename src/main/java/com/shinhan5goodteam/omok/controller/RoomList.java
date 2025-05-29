@@ -16,7 +16,6 @@ import com.shinhan5goodteam.omok.model.User;
 public class RoomList extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	HttpSession session = request.getSession();
 	User user = (User) request.getSession().getAttribute("user");
   if (user == null) {
     response.sendRedirect("login.jsp");

@@ -248,11 +248,6 @@ public class GamePlayWebSocket {
             }
         }
 
-        //클라이언트가 나갔는데 빈 방이 되면 방 상태 변경
-        // if (clients.size() == 0){
-        //     // System.out.println("gameOver");
-        //     RoomDAO.setGameOver(Integer.parseInt(roomId));
-        // }
     }
     
 
