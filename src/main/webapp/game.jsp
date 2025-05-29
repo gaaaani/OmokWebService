@@ -43,46 +43,52 @@
         <!-- <img id="chat-icon" src="chat.png" alt="채팅"> -->
       </div>
     </div>
-
+    <main>
     <div id="omok-board" style="position: relative;"></div>
 
     <div class="info-panel">
-      <div class="info-panel-inside">
-        <div id="player-info">
-          <div id="left-user">
-            <div id="left-avatar-bg" class="avatar-bg" style="background-color: #F8BBD0;">
-              <img src="img/sol.png" id="leftUser">
+      <div class="info-container">
+        <div class="info-panel-inside">
+          <div id="player-info">
+            <div id="left-user">
+              <div id="left-avatar-bg" class="avatar-bg" style="background-color: #F8BBD0;">
+                <img src="img/sol.png" id="leftUser">
+              </div>
+              <div class="name-stone">
+                <span class="player-name"><%= user1.getNickname() %></span>
+                <span class="user1stone"></span>
+              </div>
+              <div class="score">오목조목킹 <%= user1.getPoints() %></div>
+
             </div>
-            <div class="name-stone">
-              <span class="player-name"><%= user1.getNickname() %></span>
-              <span class="user1stone"></span>
+            <div class="move-container">
+              <div id="timer">
+                <span id="left-time">30</span> ⏱ <span id="right-time">30</span>
+              </div>
+              <button id="move-button" disabled>착수</button>
             </div>
-            <div class="score">오목조목킹 <%= user1.getPoints() %></div>
 
-          </div>
+            <div id="right-user">
+              <div id="right-avatar-bg" class="avatar-bg" style="background-color: #E9E9E9;">
 
-          <div id="timer">
-            <span id="left-time">30</span> ⏱ <span id="right-time">30</span>
-          </div>
+                <img src="img/sol.png" id="rightUser">
+              </div>
+              <div class="name-stone">
+                <span id="user2" class="player-name"><%= user2.getNickname() %></span>
+                <span class="user2stone"></span>
+              </div>
+              <div id="user2point" class="score">오목조목킹 <%= user2.getPoints() %></div>
 
-          <div id="right-user">
-            <div id="right-avatar-bg" class="avatar-bg" style="background-color: #E9E9E9;">
-
-              <img src="img/sol.png" id="rightUser">
             </div>
-            <div class="name-stone">
-              <span id="user2" class="player-name"><%= user2.getNickname() %></span>
-              <span class="user2stone"></span>
-            </div>
-            <div id="user2point" class="score">오목조목킹 <%= user2.getPoints() %></div>
-
-          </div>
         </div>
-        <button id="move-button" disabled>착수</button>
+        </div>
+        <div class="surrender-conatiner">
+          <button id="surrenderbutton">나가기</button>
+        </div>
       </div>
-      <button id="surrenderbutton">나가기</button>
-    </div>
 
+    </div>
+    </main>
     <div id="popup-overlay">
       <!-- 1) 나가기 확인 팝업 -->
       <div id="surrender-popup" class="popup-box">
