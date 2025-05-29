@@ -103,7 +103,7 @@ public class GamePlayWebSocket {
 
                     BoardService board = gameService.getBoard(Integer.parseInt(roomId));
 
-                    if(board.getBoard()[x][y] == 0){
+                    if(board.getBoard()[y][x] == 0){
                         if(board.placeStone(userId,x,y)){
                             // System.out.println("placeStone");
                             GameMessage gameMessage = new GameMessage(
