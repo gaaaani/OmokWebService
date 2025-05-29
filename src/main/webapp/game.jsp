@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/game.css">
-
+  <audio id ="move-sound" src="./audio/sound.mp3" preload="auto"></audio>
+  <audio id ="move-sound2" src = "./audio/moveSound.mp3" preload="auto"></audio>
 </head>
 
 <body>
@@ -208,6 +209,7 @@
       posy = this.dataset.y;
       sendData.x = posx;
       sendData.y = posy;
+      document.getElementById("move-sound2").play(); 
       console.log("(x: " + this.dataset.x + ", y: " + this.dataset.y + ")");
     }
   };  
@@ -395,6 +397,7 @@
     //착수 버튼 이벤트
     document.querySelector("#move-button").addEventListener("click", function(){
       if (posx >= 0 && posy >= 0) {
+        document.getElementById("move-sound").play();
         socket.send(JSON.stringify(sendData));
         document.querySelectorAll(".cell").forEach(cell => {
           cell.removeEventListener("click", draw);
