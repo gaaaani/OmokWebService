@@ -59,111 +59,35 @@ public class BoardService {
         return currentTurn;
     }
 
-	//삼삼 판단
-    public boolean isThreeThree(String userId, int row, int col) {
-		int[] dy = { -1, 1, 0, 0, -1, 1, -1, 1 };
-		int[] dx = { 0, 0, -1, 1, -1, 1, 1, -1 }; // dfs
-		int y = col;
-		int x = row;
-		int cnt3 = 0;
-        int stone = 0;
-        if ( userId.equals(user1Id)){
-            stone = 1; // 1 이 흑
-			board[y][x] = 1;
-        } else {
-            return true;
-        }
-		for (int i = 0; i < 8; i += 2) {
-			int cnt = 1;
-			while (true) {
-				int ny = y + dy[i];
-				int nx = x + dx[i];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || board[ny][nx] == 0) {
-					break;
-				}
-				if ( board[ny][nx] != stone ) {
-					cnt = 1;
-					break;
-				}
-				cnt++;
-				y = ny;
-				x = nx;
-			}
-			y = col;
-			x = row;
-			while (true) {
-				int ny = y + dy[i + 1];
-				int nx = x + dx[i + 1];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || board[ny][nx] == 0) {
-					break;
-				}
-				if (board[ny][nx] != stone ) {
-					cnt = 1;
-					break;
-				}
-				cnt++;
-				y = ny;
-				x = nx;
-			}
-			if (cnt == 3) {
-				cnt3++;
-			}
-		}
-		board[y][x] = 0;
-		if (cnt3 >= 2) {
-			return false;
-		}
-		return true;
-
-	}
-
 	//오목 판단
-    public boolean isOmok(String userId, int row, int col) {
-		int[] dy = { -1, 1, 0, 0, -1, 1, -1, 1 };
-		int[] dx = { 0, 0, -1, 1, -1, 1, 1, -1 };
-    	int y = col;
-    	int x = row;
-        int stone = 0;
-        if ( userId.equals(user1Id)){
-            stone = 1;
-        } else {
-            stone = 2;
-        }
-    	for(int i=0;i<8;i+=2) {
-    		int cnt = 1;
-			y = col;
-    		x = row;
-    		while(true) {
-    			int ny = y + dy[i];
-    			int nx = x + dx[i];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || board[ny][nx] != stone) {
-					break;
-				} else {
-					cnt++;
-				}
-    			y = ny;
-    			x = nx;
-    		}
-    		y = col;
-    		x = row;
-    		while(true) {
-    			int ny = y + dy[i+1];
-    			int nx = x + dx[i+1];
-				if (ny < 0 || nx < 0 || ny >= size || nx >= size || board[ny][nx] != stone) {
-					break;
-				} else {
-					cnt++;
-				}
-    			y = ny;
-    			x = nx;
-    		}
-			if (cnt == 5) {
-    			return true;
-    		}
-    	}
-    	return false;
-    	 
+    public boolean isOmok(String userId, int col, int row) {
+		int stone = userId.equals(user1Id) ? 1 : 2;
+		int[][] dirs = { {1,0}, {0,1}, {1,1}, {1,-1} }; // 4방향
+
+		for (int[] dir : dirs) {
+			int count = 1;
+			// 한 방향
+			int nx = col + dir[0], ny = row + dir[1];
+			while (inRange(nx, ny) && board[ny][nx] == stone) {
+				count++;
+				nx += dir[0];
+				ny += dir[1];
+			}
+			// 반대 방향
+			nx = col - dir[0]; ny = row - dir[1];
+			while (inRange(nx, ny) && board[ny][nx] == stone) {
+				count++;
+				nx -= dir[0];
+				ny -= dir[1];
+			}
+			if (count >= 5) return true;
+		}
+		return false;
     }
+
+	private boolean inRange(int x, int y) {
+		return x >= 0 && y >= 0 && x < size && y < size;
+	}
 
 	public int getRoomId() {
 		return roomId;
