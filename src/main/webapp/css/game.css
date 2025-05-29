@@ -7,10 +7,6 @@
   font-family: 'nanumesquareneo_b';
   src: url('font/NanumSquareNeo-bRg.ttf');
 }
-html, body {
-    overflow: hidden;
-    height: 100%;
-} 
 #leftUser,
 #rightUser {
   display: block;
