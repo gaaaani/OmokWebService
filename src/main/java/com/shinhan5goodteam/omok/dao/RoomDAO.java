@@ -1,11 +1,9 @@
 package com.shinhan5goodteam.omok.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,14 +49,6 @@ public class RoomDAO {
     public static int insertRoom(Room room) {
         int roomId = -1;
 
-        // 랜덤으로 black_id 또는 white_id 에 user_id 저장
-        String blackId = null;
-        String whiteId = null;
-        if (Math.random() < 0.5) {
-            blackId = room.getUserId();
-        } else {
-            whiteId = room.getUserId();
-        }
 
         String sql = "INSERT INTO Room (room_id, user_id, room_name, room_explain, status) " +
                 "VALUES (ROOM_SEQ.NEXTVAL, ?, ?, ?, ?)";

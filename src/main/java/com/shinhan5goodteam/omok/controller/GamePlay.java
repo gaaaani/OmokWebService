@@ -2,7 +2,6 @@ package com.shinhan5goodteam.omok.controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ public class GamePlay extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 
 
 	@Override

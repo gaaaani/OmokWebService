@@ -50,7 +50,7 @@
       <div class="info-panel-inside">
         <div id="player-info">
           <div id="left-user">
-            <div class="avatar-bg" style="background-color: #F8BBD0;">
+            <div id="left-avatar-bg" class="avatar-bg" style="background-color: #F8BBD0;">
               <img src="img/sol.png" id="leftUser">
             </div>
             <div class="name-stone">
@@ -66,9 +66,9 @@
           </div>
 
           <div id="right-user">
-            <div class="avatar-bg" style="background-color: #E9E9E9;">
+            <div id="right-avatar-bg" class="avatar-bg" style="background-color: #E9E9E9;">
 
-              <img src="img/sol.png" alt="곰돌이" id="rightUser">
+              <img src="img/sol.png" id="rightUser">
             </div>
             <div class="name-stone">
               <span id="user2" class="player-name"><%= user2.getNickname() %></span>
@@ -133,6 +133,7 @@
   }
   document.querySelector("#leftUser").src = "img/"+user1.profileimg+".png";
   document.querySelector(".popup-avatar").src = "img/"+user1.profileimg+".png";
+  document.querySelector("#left-avatar-bg").style.backgroundColor = user1.profilecolor;
   //방정보
   let room = {
     roomId: "<%= room.getRoomId() %>",
@@ -154,6 +155,7 @@
       document.querySelector("#user2").innerHTML = user2.nickname;
       document.querySelector("#user2point").innerHTML = "오목조목킹 "+user2.point;
       document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
+      document.querySelector("#right-avatar-bg").style.backgroundColor = user2.profilecolor;
     }
 
   //좌표 값
@@ -318,6 +320,7 @@
           document.querySelector("#user2").innerHTML = user2.nickname;
           document.querySelector("#user2point").innerHTML = "오목조목킹 "+ user2.point;
           document.querySelector("#rightUser").src = "img/"+user2.profileimg+".png";
+          document.querySelector("#right-avatar-bg").style.backgroundColor = user2.profilecolor;
           } else if (data1.type == "move"){ //넘어온 객체가 move인 경우. 서버에서 바둑판 정보를 보낸것. 방id, 현재 차례 유저 등
             if (data1.userId == user1.id){
               document.getElementById(data1.x+"-"+data1.y).style.backgroundColor = color == "black" ? "white" : "black";

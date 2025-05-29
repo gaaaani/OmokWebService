@@ -1,6 +1,5 @@
 package com.shinhan5goodteam.omok.service;
 
-import com.shinhan5goodteam.omok.dao.RoomDAO;
 
 public class BoardService {
     private int roomId;
