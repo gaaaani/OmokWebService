@@ -6,6 +6,12 @@
 <%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%@ page import="java.util.List" %>
 <%
+    if (session.getAttribute("user") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+
     User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
     List<History> historyList = (List<History>) request.getAttribute("historyList");
     int total = (Integer) request.getAttribute("total");

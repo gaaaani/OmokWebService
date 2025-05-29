@@ -3,11 +3,12 @@
 <%@ page import="com.shinhan5goodteam.omok.model.User" %>
 <%@ page import="com.shinhan5goodteam.omok.dao.UserDAO" %>
 <%
-    User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
-    if (user == null) {
-        response.sendRedirect("login.jsp");
-        return;
+    if (session.getAttribute("user") == null) {
+      response.sendRedirect("login.jsp");
+      return;
     }
+
+    User user = UserDAO.findById(((User) session.getAttribute("user")).getUserid());
 
     String userid = user.getUserid();
     String nickname=user.getNickname();

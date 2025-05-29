@@ -2,8 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="com.shinhan5goodteam.omok.model.Room"%>
 <%@ page import="com.shinhan5goodteam.omok.model.User"%>
-
 <%
+   if (session.getAttribute("user") == null) {
+         response.sendRedirect("login.jsp");
+         return;
+   }
+
    User loginUser = (User) request.getAttribute("user"); // 로그인 유저 정보
    String loginProfileImagePath = "img/" + loginUser.getProfileimage() + ".png";
    String loginProfileColor = loginUser.getProfilecolor();
