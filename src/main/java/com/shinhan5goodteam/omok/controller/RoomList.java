@@ -18,15 +18,15 @@ public class RoomList extends HttpServlet {
       throws ServletException, IOException {
 	HttpSession session = request.getSession();
 	User user = (User) request.getSession().getAttribute("user");
-    if (user == null) {
-      response.sendRedirect("login.jsp");
-      return;
-    }
-    RoomDAO dao = new RoomDAO();
-    List<Room> roomList = dao.getAllRooms();
+  if (user == null) {
+    response.sendRedirect("login.jsp");
+    return;
+  }
+  RoomDAO dao = new RoomDAO();
+  List<Room> roomList = dao.getAllRooms();
 
-    request.setAttribute("roomList", roomList);
-    request.setAttribute("user", user);
-    request.getRequestDispatcher("main.jsp").forward(request, response);
+  request.setAttribute("roomList", roomList);
+  request.setAttribute("user", user);
+  request.getRequestDispatcher("main.jsp").forward(request, response);
   }
 }
