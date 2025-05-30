@@ -8,7 +8,6 @@
     src: url('font/NanumSquareNeo-bRg.ttf');
 }
 html, body {
-    overflow: hidden;
     height: 100%;
 } 
 body{
@@ -18,7 +17,6 @@ body{
     height: 100vh;
     display: flex;
     justify-content: center;
-    overflow: hidden;
 }
 #wrapper{
     width: 398px;
